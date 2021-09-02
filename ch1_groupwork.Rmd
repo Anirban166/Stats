@@ -1,0 +1,242 @@
+---
+title: "Chapter 1 Groupwork"
+author: "Brit Riggs, Max Evans, Helen Eifert, Anirban Chetia"
+date: "9/1/2021"
+output: pdf_document
+---
+
+## Question 1
+
+### 1a. Compute mean and median separately for each type of feeder.
+
+\textbf{Terrestrial}  
+Mean:  
+$\frac{76.50+6.03+3.51+9.96+4.24+7.74+9.54+41.70+1.84+2.5+1.54}{11}=15.009$  
+Mean is 15.009.
+
+Median:  
+1.54
+1.84
+2.5
+3.51
+4.24
+\textbf{6.03}
+7.74
+9.54
+9.96
+41.70
+76.50  
+Median is 6.03.  
+
+\textbf{Aquatic}  
+Mean:  
+$\frac{0.27+0.61+0.54+0.14+0.63+0.23+0.56+0.48+0.16+0.18}{10}=0.38$  
+Mean is 0.38.  
+
+Median:  
+0.14
+0.16
+0.18
+0.23
+\textbf{0.27
+0.48}
+0.54
+0.56
+0.61
+0.63  
+$\frac{0.27+0.48}{2}=0.375$  
+Median is 0.375.
+
+### 1b. Comment on the relative sensitivity of the mean and median to the extreme values in the data set.
+
+The terrestrial data set has more extreme outliers that skew the mean away from the median, more than the aquatic data  set.  
+
+### 1c. Which measure, mean or median, would you recommend as the most appropriate measure of the DDE to PCB level for both types of feeders? Expain.
+
+Median would be the better measurement/value, because the mean is too influenced by the outliers in the terrestrial data set.   
+
+## Question 2
+
+### 2a. Compute the mean and standard deviation of the room rates.
+
+\textbf{Luxury}  
+Mean:  
+$\frac{175+180+120+150+120+125}{6}=145$  
+
+Standard Deviation:  
+$\sqrt{\frac{(175-145)^{2}+(180-145)^{2}+(120-145)^{2}+(150-145)^{2}+(120-145)^{2}+(125-145)^{2}}{6-1}}=27.568$  
+  
+\textbf{Budget}  
+Mean:  
+$\frac{50+50+49+45+36+45+50+50+40}{9}=46.111$  
+  
+Standard Deviation:  
+*For shorter display purposes, our mean of* 46.111 *is shortened to* 46 *below even though our calculations used* 46.111.  
+$\sqrt{\frac{(50-46)^{2}+(50-46)^{2}+(49-46)^{2}+(45-46)^{2}+(36-46)^{2}+(45-46)^{2}+(50-46)^{2}+(50-46)^{2}+(40-46)^{2}}{9-1}}=5.134$
+
+### 2b. Give a reason why luxury hotels might have higher variability than the budget hotels.
+
+There is a wide range of amenities that make up a luxury hotel (e.g. included breakfast, room with a view). Budget hotels are meant to minimize cost, so their rates are more likely determined by consistent factors like minimum wage, utilities, etc,. By contrast, luxury is dependent on personal taste and can vary a lot based on what people are willing to pay.
+
+## Question 3
+
+```{r}
+library(dplyr)
+PolutionRatios <- data.frame(
+      Ratio = c(76.50, 6.03, 3.51, 9.96, 4.24, 7.74, 9.54, 41.70, 1.84, 2.5, 1.54,
+                0.27, 0.61, 0.54, 0.14, 0.63, 0.23, 0.56,  0.48, 0.16, 0.18),
+      Type  = c(rep('Terrestrial',11), rep('Aquatic',10)))
+
+Terrestrial <- PolutionRatios %>% filter(Type == 'Terrestrial')
+Aquatic     <- PolutionRatios %>% filter(Type == 'Aquatic')
+
+mean(Terrestrial$Ratio)
+median(Terrestrial$Ratio)
+mean(Aquatic$Ratio)
+median(Aquatic$Ratio)
+```
+The values match our hand-calculations.
+
+## Question 4
+
+```{r}
+Hotels <- data.frame(
+      Price = c(175, 180, 120, 150, 120, 125, 50, 50, 49, 45, 36, 45, 50, 50, 40),
+      Type  = c(rep('Luxury',6), rep('Budget', 9)))
+
+Luxury <- Hotels %>% filter(Type == 'Luxury')
+Budget <- Hotels %>% filter(Type == 'Budget')
+
+mean(Luxury$Price)
+sd(Luxury$Price)
+mean(Budget$Price)
+sd(Budget$Price)
+```
+The values match our hand-calculations.
+
+## Question 5
+
+```{r echo = FALSE}
+boxplot(Price ~ Type,data = Hotels, main = "Hotel prices comparison (Luxury/Budget)", xlab = "Hotel Type", ylab = "Prices")
+```
+
+## Question 6
+
+### 6a. Milliliters of tea drunk per day.
+Continuous  
+
+### 6b. Different brands of soda drunk over the course of a year.
+Discrete  
+
+### 6c. Number of days per week that you are oncampus for any amount of time.
+Discrete  
+
+### 6d. Number of grizzly bear individuals genetically identified from a grid of hair traps in Glacier National Park.
+Discrete  
+
+## Question 7
+
+### 7a.
+Histogram A goes with boxplot 2  
+
+### 7b.
+Histogram B goes with boxplot 1  
+
+### 7c.
+Histogram C goes with boxplot 4  
+
+### 7d.
+Histogram D goes with boxplot 3  
+
+
+## Question 8  
+No, if everyone receives a 1,000 bonus, the standard deviation of the salaries does not change because if the entire sample receives the same amount of change, the relative salaries don’t change. 
+
+## Question 9
+
+### 9a. Describe similarities and differences between chemical Z found at the 3 sites.
+For chemical Z, the median is approximately the same for all three sites. Additionally, the spread of data is larger for sites 1 and 3 compared to site 2. Site 1 is skewed whereas sites 2 and 3 are relatively normal and not skewed.  
+
+### 9b.
+
+#### i. If the sum of the percents of the 3 chemicals is 20.5%, which site is the piece likely from? Justify.\
+It's likely from site III. The sum of the median values is too high at site 1 and too low at site II. Even when accounting for the lower values at site I and the higher values at site II, site III is the most likely to capture a value of 20.5%.
+
+#### ii. Which chemical is most useful in identifying the origin site? Justify.\
+Chemical Y would be most useful in identifying the origin site because it has the most difference in values between sites, and each site has a unique range of values with no overlap.
+
+## Question 10
+The variable type for each characteristic:  
+Gender:  
+Categorical, because it’s not defined by number values, although one could say it is still continuous  
+
+Ethnicity:  
+Categorical, because it’s not defined by number values  
+
+Age (years):  
+Numerical Discrete (unless they’re breaking it down by months), but otherwise age in years is generally countable  
+
+Height (m):  
+Numerical Continuous, because people vary quite a bit between 1 and 2 meters and need further subdivisions  
+
+Weight (kg):  
+Numerical Continuous, because weight falls in between countable kg measurements  
+
+Blood Pressure (mmHg):  
+Numerical Continuous, because blood pressure also can be subdivided  
+
+Heart Rate (bpm):  
+Numerical Discrete, because there are no half beats per minute  
+
+## Question 11
+The type of sampling is “Double” Simple Random Sampling, because the vintner is randomly selecting 100 vines from 500, and then again using Simple Random Sampling to select one grape from each of those vines. It could also be seen as an incomplete stratified sampling because there is stratification from the original sampling, but the original sampling isn’t necessarily representative of the vines or proportioned in any way.
+
+## Question 12
+
+### 12a.
+```{r}
+set.seed(10)
+rand.sample <- rnorm(100, 10, 2)
+
+step1.mean <- mean(rand.sample)
+step1.median <- median(rand.sample)
+step1.var <- sum((rand.sample-mean(rand.sample))^2/(length(rand.sample)-1))
+step1.IQR <- IQR(rand.sample)
+
+# Required output:
+# 1) Mean:
+step1.mean
+# 2) Median:
+step1.median
+# 3) Variance:
+step1.var
+# 4) Interquartile range:
+step1.IQR
+```
+
+### 12b. Do the mean and median match the expected value of 10? Discuss.
+
+No, they do not match. There is a discrepancy between the sample and population mean because the sample does not capture the entire population and only includes a portion of the population in its calculation, so the values may be different.
+
+### 12c. and 12d. 
+```{r}
+rand.sample.2 <- c(rand.sample, 250, 250)
+
+step2.mean <- mean(rand.sample.2)
+step2.median <- median(rand.sample.2)
+step2.var <- sum((rand.sample.2-mean(rand.sample.2))^2/(length(rand.sample.2)-1))
+step2.IQR <- IQR(rand.sample.2)
+
+# Required output:
+# 1) Mean:
+step2.mean
+# 2) Median:
+step2.median
+# 3) Variance:
+step2.var
+# 4) Interquartile range:
+step2.IQR
+```
+
+### 12e.
+The mean and variance for rand.sample.2 are higher than in rand.sample. However, the median and IQR are similar, so the median and IQR are seemingly more resilient to outliers because they weren't really affected by the addition of 2 outliers.

@@ -49,7 +49,7 @@ Median is 0.375.
 
 ### 1b. Comment on the relative sensitivity of the mean and median to the extreme values in the data set.
 
-The terrestrial data set has more extreme outliers that skew the mean away from the median, more than the aquatic data  set.  
+The terrestrial data set has more extreme outliers that skew the mean away from the median, more than the aquatic data set.  
 
 ### 1c. Which measure, mean or median, would you recommend as the most appropriate measure of the DDE to PCB level for both types of feeders? Expain.
 
@@ -81,19 +81,15 @@ There is a wide range of amenities that make up a luxury hotel (e.g. included br
 ## Question 3
 
 ```{r}
+suppressPackageStartupMessages({
 library(dplyr)
+}) 
 PolutionRatios <- data.frame(
       Ratio = c(76.50, 6.03, 3.51, 9.96, 4.24, 7.74, 9.54, 41.70, 1.84, 2.5, 1.54,
                 0.27, 0.61, 0.54, 0.14, 0.63, 0.23, 0.56,  0.48, 0.16, 0.18),
       Type  = c(rep('Terrestrial',11), rep('Aquatic',10)))
 
-Terrestrial <- PolutionRatios %>% filter(Type == 'Terrestrial')
-Aquatic     <- PolutionRatios %>% filter(Type == 'Aquatic')
-
-mean(Terrestrial$Ratio)
-median(Terrestrial$Ratio)
-mean(Aquatic$Ratio)
-median(Aquatic$Ratio)
+PolutionRatios %>% group_by(Type) %>% summarise(mean = mean(Ratio), median = median(Ratio))
 ```
 The values match our hand-calculations.
 
@@ -104,13 +100,7 @@ Hotels <- data.frame(
       Price = c(175, 180, 120, 150, 120, 125, 50, 50, 49, 45, 36, 45, 50, 50, 40),
       Type  = c(rep('Luxury',6), rep('Budget', 9)))
 
-Luxury <- Hotels %>% filter(Type == 'Luxury')
-Budget <- Hotels %>% filter(Type == 'Budget')
-
-mean(Luxury$Price)
-sd(Luxury$Price)
-mean(Budget$Price)
-sd(Budget$Price)
+Hotels %>% group_by(Type) %>% summarise(mean = mean(Price), median = median(Price))
 ```
 The values match our hand-calculations.
 

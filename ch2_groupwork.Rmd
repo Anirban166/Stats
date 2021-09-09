@@ -188,13 +188,22 @@ Function: dbinom(x, size, prob)
 ### 9c. Calculate by hand the probability of observing only 1 sea lion with a weight greater than 320 kg.
 
 Calculation: We have, n = 10, and x = 1:
-Formulae: \frac{n!}{x!(n-x)!}$ * 	$$\pi$^{x}$	* $(1-$\pi$)^{n-x}$
-= \frac{10!}{1!(10-1)!}$ * 	$$\pi$^{1}$	* $(1-$\pi$)^{10-1}$
-= 
+
+Formulae: $\frac{n!}{x!(n-x)!}*\pi^{x}*(1-\pi)^{n-x}$
+
+= $\frac{10!}{1!(10-1)!}*\pi^{1}*(1-\pi)^{10-1}$
+
+= $\frac{10!}{1!(9)!}*0.091^{1}*(1-0.091)^{10-1}$
+
+= $\frac{9!*10}{9!}*0.091*(1-0.091)^{10-1}$
+
+= $10*0.091*0.42371608315$
+
+= $0.3855816356$
 
 ### 9d. Use R to calculate the probability of all possible outcomes and produce a graph the PMF of this distribution.
 
-```{r echo = FALSE}
+```{r}
 dist <- data.frame(x = 0:10) %>% 
   mutate(probability = dbinom(x, size = 10, prob = round((1 - mosaic::xpnorm(320, 300, 15)), 3)))
 ggplot(dist, aes(x = x)) +

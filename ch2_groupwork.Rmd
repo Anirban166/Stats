@@ -55,7 +55,6 @@ Check: $P(White \cap Type A) = P(White)P(Type A) = 0.802(0.372) = 0.298 \neq 0.3
 
 No, blood type and ethnicity are not independent because we didn't satisfy the above equation.
 
-
 ## Question 2
 
 ### 2a. Number of M&Ms I eat per hour while grading homework
@@ -83,7 +82,6 @@ dbinom(0, size=2, prob=0.2)
 ```{r}
 dbinom(1, size=2, prob=0.2) + dbinom(2, size=2, prob=0.2)
 ```
-
 
 ## Question 4
 
@@ -181,7 +179,7 @@ round((1 - mosaic::xpnorm(320, 300, 15)), 3)
 
 ### 9b. Now suppose we independently sample 10 sea lions and we are interested in how many of the 10 have a weight larger than 320 kg. What distribution would we use to model this and what are the parameters of that distribution?
 
-I would be using the Binomial Distribution as because the sea lions would either have a weight less than 320kg, or a weight more than that (either or, i.e. a binary result). The parameters for the distribution would be:
+We would be using the Binomial Distribution as because the sea lions would either have a weight less than 320kg, or a weight more than that (either or, i.e. a binary result). The parameters for the distribution would be:
 - The observations, **x**
 - The number of observations (sea lions), **size**
 - The probability of obtaining a sea lion with weight greater than 320kg, **p**
@@ -192,7 +190,7 @@ Function: dbinom(x, size, prob)
 Calculation: We have, n = 10, and x = 1:
 Formulae: \frac{n!}{x!(n-x)!}$ * 	$$\pi$^{x}$	* $(1-$\pi$)^{n-x}$
 = \frac{10!}{1!(10-1)!}$ * 	$$\pi$^{1}$	* $(1-$\pi$)^{10-1}$
-=
+= 
 
 ### 9d. Use R to calculate the probability of all possible outcomes and produce a graph the PMF of this distribution.
 

@@ -67,6 +67,7 @@ No, blood type and ethnicity are not independent because we didn't satisfy the a
 ### 2c. The number of Manzanita bushes per 100 meters of trail.
 
 
+
 ## Question 3
 
 ### 3a. What is the probability that the next two races I’m in will both have crashes?
@@ -159,7 +160,9 @@ mosaic::xpnorm(c(-1.97, 2.46), 0, 1)
 ## Question 8  
 
 ### 8a. What is the probability that I fed my cats more than 250 grams of kibble this morning?
-
+```{r}
+1-pnorm(250,mean=200,sd=30)
+```
 
 ### 8b. From my cats’ perspective, more food is better. How much would I have to feed them for this morning to be among the top 10% of feedings?
 
@@ -168,30 +171,13 @@ mosaic::xpnorm(c(-1.97, 2.46), 0, 1)
 ## Question 9
 
 ### 9a. Use R to find the probability of randomly sampling a sea lion with a weight greater than 320 kg. Round your answer to 3 decimals.
-```{r}
-round((1 - mosaic::xpnorm(320, 300, 15)), 3)
-```
+
 
 ### 9b. Now suppose we independently sample 10 sea lions and we are interested in how many of the 10 have a weight larger than 320 kg. What distribution would we use to model this and what are the parameters of that distribution?
-I would be using the Binomial Distribution as because the sea lions would either have a weight less than 320kg, or a weight more than that (either or, i.e. a binary result). The parameters for the distribution would be:
-- The observations, **x**
-- The number of observations (sea lions), **size**
-- The probability of obtaining a sea lion with weight greater than 320kg, **p**
-Function: dbinom(x, size, prob)
+
 
 ### 9c. Calculate by hand the probability of observing only 1 sea lion with a weight greater than 320 kg.
-Calculation: We have, n = 10, and x = 1:
-Formulae: \frac{n!}{x!(n-x)!}$ * 	$$\pi$^{x}$	* $(1-$\pi$)^{n-x}$
-= \frac{10!}{1!(10-1)!}$ * 	$$\pi$^{1}$	* $(1-$\pi$)^{10-1}$
-=
+
 
 ### 9d. Use R to calculate the probability of all possible outcomes and produce a graph the PMF of this distribution.
-```{r echo = FALSE}
-dist <- data.frame(x = 0:10) %>% 
-  mutate(probability = dbinom(x, size = 10, prob = round((1 - mosaic::xpnorm(320, 300, 15)), 3)))
-ggplot(dist, aes(x = x)) +
-  geom_point(aes(y = probability)) +
-  geom_linerange(aes(ymax = probability, ymin = 0)) +
-  ggtitle('Binomial distribution: n=3, p=0.8') +
-  theme_bw()
-```
+

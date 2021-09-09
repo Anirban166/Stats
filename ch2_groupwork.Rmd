@@ -1,0 +1,164 @@
+---
+title: "Chapter 2 Group Work"
+author: "Brit Riggs, Anirban Chetia,Max Evans, Helen Eifert,"
+date: "9/9/2021"
+output:
+  pdf_document: default
+---
+
+## Question 1
+
+### 1a. Fill in table.
+
+```{r}
+library(dplyr)
+BloodType <- data.frame(
+      O  = c(36, 7, 1.7, 1.5),
+      A  = c(32.2, 2.9, 1.2, 0.8),
+      B  = c(8.8, 2.5, 1, 0.3),
+      AB = c(3.2, 0.5, 0.3, 0.1))
+
+BloodType$Total <- BloodType$O + BloodType$A + BloodType$B + BloodType$AB
+
+BloodType <- BloodType %>% add_row(
+  O = sum(BloodType$O),
+  A = sum(BloodType$A),
+  B = sum(BloodType$B),
+  AB = sum(BloodType$AB),
+  Total = sum(BloodType$Total))
+
+rownames(BloodType) <- c('White','Black','Asian','Other','Total')
+
+BloodType
+```
+
+### 1b. Probability that randomly selected donor will be Asian and have Type O blood?
+$P(Asian \cap Type O) = 1.7% = 0.017$
+
+### 1c. Probability that randomly selected donor is White?
+$P(White) = 80.2% = 0.802$
+
+### 1d. Probability that randomly selected donor has Type A blood?
+$P(Type A) = 37.2% = 0.372$
+
+### 1e. Probability that a White donor will have Type A blood?
+$P(Type A | White) = P(White \cap Type A)/P(White) = 32.2%/80.2% = 0.401$
+
+### 1f. Is blood type and ethnicity independent? Justify mathematically.
+If A and B are independent, then $P(A \cap B) = P(A)P(B)$ is true.
+
+What we know: $P(White \cap Type A) = 0.322$, $P(White) = 0.802$, and $P(Type A) = 0.372$.
+
+Check: $P(White \cap Type A) = P(White)P(Type A) = 0.802(0.372) = 0.298 \neq 0.322$
+
+No, blood type and ethnicity are not independent because we didn't satisfy the above equation.
+
+
+## Question 2
+
+### 2a. Number of M&Ms I eat per hour while grading homework
+
+
+### 2b. The number of mornings in the coming 7 days that I change my son’s first diaper of the day.
+
+
+### 2c. The number of Manzanita bushes per 100 meters of trail.
+
+
+
+## Question 3
+
+### 3a. What is the probability that the next two races I’m in will both have crashes?
+```{r}
+dbinom(2, size=2, prob=0.2)
+```
+
+### 3b. What is the probability that neither of my next two races will have a crash?
+```{r}
+dbinom(0, size=2, prob=0.2)
+```
+
+### 3c. What is the probability that at least one of the next two races have a crash?
+```{r}
+dbinom(1, size=2, prob=0.2) + dbinom(2, size=2, prob=0.2)
+```
+
+
+## Question 4
+
+### 4a. What is the probability that I don’t have to clean up any vomits this coming week?
+```{r}
+dpois(0, lambda=1.2)
+```
+
+### 4b. What is the probability that I must clean up 1 or more vomits?
+```{r}
+1-dpois(0, lambda=1.2)
+```
+
+### 4c. If I wanted to measure this process with a rate per day, what rate should I use?
+
+
+
+## Question 5
+
+### 5a. What is the probability that I see 3 runners on a morning walk?
+$P(x=0) + P(x=1) + P(x=2) + P(x=3) + P(x=4+) = 1$
+
+$0.45 + 0.25 + 0.20 + P(x=3) + 0 = 1$
+
+$P(x=3) = 0.10$
+
+### 5b. What is the expected number of runners that I will encounter?
+
+
+### 5c. What is the variance of the number of runners that I will encounter?
+
+
+
+## Question 6
+
+### 6a. $P(Z<1.58)$
+
+
+### 6b. $P(Z=1.58$
+
+
+### 6c. $P(Z>-0.27)$
+
+
+### 6d. $P(-1.97<Z<2.46)$
+
+
+
+## Question 7
+
+### 7a. $P(Z<z)=0.75$ 
+
+
+### 7b. $P(Z>z)=0.4$
+
+
+
+## Question 8  
+
+### 8a. What is the probability that I fed my cats more than 250 grams of kibble this morning?
+
+
+### 8b. From my cats’ perspective, more food is better. How much would I have to feed them for this morning to be among the top 10% of feedings?
+
+
+
+## Question 9
+
+### 9a. Use R to find the probability of randomly sampling a sea lion with a weight greater than 320 kg. Round your answer to 3 decimals.
+
+
+### 9b. Now suppose we independently sample 10 sea lions and we are interested in how many of the 10 have a weight larger than 320 kg. What distribution would we use to model this and what are the parameters of that distribution?
+
+
+### 9c. Calculate by hand the probability of observing only 1 sea lion with a weight greater than 320 kg.
+
+
+### 9d. Use R to calculate the probability of all possible outcomes and produce a graph the PMF of this distribution.
+

@@ -200,6 +200,6 @@ dist <- data.frame(x = 0:10) %>%
 ggplot(dist, aes(x = x)) +
   geom_point(aes(y = probability)) +
   geom_linerange(aes(ymax = probability, ymin = 0)) +
-  ggtitle('Binomial distribution: n=3, p=0.8') +
+  ggtitle('Binomial distribution: n = 10, p = 0.091') +
   theme_bw()
 ```

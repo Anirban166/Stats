@@ -156,7 +156,7 @@ qnorm(0.75, mean = 0, sd = 1)
 
 ### 7b. $P(Z>z)=0.4$
 ```{r}
-qnorm(0.4, mean = 0, sd = 1)
+1-qnorm(0.4, mean = 0, sd = 1)
 ```
 
 ## Question 8  

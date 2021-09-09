@@ -42,7 +42,7 @@ $P(White) = 80.2% = 0.802$
 $P(Type A) = 37.2% = 0.372$
 
 ### 1e. Probability that a White donor will have Type A blood?
-$P(Type A | White) = P(White \cap Type A)/P(White) = 32.2%/80.2% = 0.401$
+$P(Type A | White) = \frac{P(White \cap Type A)}{P(White)} = \frac{32.2}{80.2} = 0.401$
 
 ### 1f. Is blood type and ethnicity independent? Justify mathematically.
 If A and B are independent, then $P(A \cap B) = P(A)P(B)$ is true.

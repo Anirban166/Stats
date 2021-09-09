@@ -59,13 +59,13 @@ No, blood type and ethnicity are not independent because we didn't satisfy the a
 ## Question 2
 
 ### 2a. Number of M&Ms I eat per hour while grading homework
-
+Poisson
 
 ### 2b. The number of mornings in the coming 7 days that I change my son’s first diaper of the day.
-
+Binomial
 
 ### 2c. The number of Manzanita bushes per 100 meters of trail.
-
+Binomial
 
 ## Question 3
 

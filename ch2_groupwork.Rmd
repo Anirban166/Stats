@@ -1,9 +1,8 @@
 ---
 title: "Chapter 2 Group Work"
-author: "Brit Riggs, Anirban Chetia,Max Evans, Helen Eifert,"
+author: "Brit Riggs, Anirban Chetia, Max Evans, Helen Eifert,"
 date: "9/9/2021"
-output:
-  pdf_document: default
+output: pdf_document
 ---
 
 ## Question 1
@@ -11,7 +10,10 @@ output:
 ### 1a. Fill in table.
 
 ```{r}
+suppressPackageStartupMessages({
 library(dplyr)
+})
+
 BloodType <- data.frame(
       O  = c(36, 7, 1.7, 1.5),
       A  = c(32.2, 2.9, 1.2, 0.8),
@@ -27,7 +29,7 @@ BloodType <- BloodType %>% add_row(
   AB = sum(BloodType$AB),
   Total = sum(BloodType$Total))
 
-rownames(BloodType) <- c('White','Black','Asian','Other','Total')
+rownames(BloodType) <- c('White', 'Black', 'Asian', 'Other', 'Total')
 
 BloodType
 ```
@@ -97,8 +99,9 @@ dpois(0, lambda=1.2)
 ```
 
 ### 4c. If I wanted to measure this process with a rate per day, what rate should I use?
-
-
+```{r}
+(1-dpois(0, lambda=1.2))/7
+```
 
 ## Question 5
 
@@ -110,26 +113,40 @@ $0.45 + 0.25 + 0.20 + P(x=3) + 0 = 1$
 $P(x=3) = 0.10$
 
 ### 5b. What is the expected number of runners that I will encounter?
-
+Expected value, $\mu$ = (0 * (0.45)) + (1 * (0.25)) + (2 * (0.2)) + (3 * (0.1)) = 0.95 
 
 ### 5c. What is the variance of the number of runners that I will encounter?
-
-
+Variance, $\sigma$ = ((0 - 0.95)^2 * 0.45)  + ((1 - 0.95)^2 * 0.25) + ((2 - 0.95)^2 * 0.2) + ((3 - 0.95)^2 * 0.1) + 0 = 1.0475
 
 ## Question 6
 
 ### 6a. $P(Z<1.58)$
-
+```{r}
+suppressPackageStartupMessages({
+library(mosaic)
+})
+# P(Z < 1.58)
+mosaic::xpnorm(1.58, 0, 1)
+```
 
 ### 6b. $P(Z=1.58$
-
+```{r}
+# P(Z = 1.58) -> discrete
+0
+```
 
 ### 6c. $P(Z>-0.27)$
-
+```{r}
+# P(Z > -.27)
+1 - mosaic::xpnorm(-.27, 0, 1)
+```
 
 ### 6d. $P(-1.97<Z<2.46)$
-
-
+```{r}
+# Use mosaic::xpnorm for added verbose graphics/plot for visual diagnosis
+# P(-1.97 < Z < 2.46)
+mosaic::xpnorm(c(-1.97, 2.46), 0, 1)
+```
 
 ## Question 7
 

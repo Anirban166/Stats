@@ -65,7 +65,7 @@ Poisson
 Binomial
 
 ### 2c. The number of Manzanita bushes per 100 meters of trail.
-Binomial
+Poisson
 
 ## Question 3
 

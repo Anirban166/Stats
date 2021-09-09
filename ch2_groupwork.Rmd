@@ -167,7 +167,9 @@ qnorm(0.75, mean = 0, sd = 1)
 ```
 
 ### 8b. From my cats’ perspective, more food is better. How much would I have to feed them for this morning to be among the top 10% of feedings?
-
+```{r}
+qnorm(0.1, mean = 200, sd = 30)
+```
 
 ## Question 9
 

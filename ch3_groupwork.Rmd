@@ -1,0 +1,193 @@
+---
+title:  "Chapter 3 Groupwork"
+author: "Brit Riggs, Anirban Chetia"
+date:   "9/14/2021"
+fontsize: 12pt
+geometry: margin = 1.25cm
+output: pdf_document
+---
+
+## Question 1
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+suppressPackageStartupMessages({
+library(knitr)
+library(dplyr)
+library(boot)
+library(ggplot2)
+})
+```
+
+### (a)
+Answer: Done (GOT IT)
+
+```{r}
+data(BodyTemp50, package = 'Lock5Data')
+hist(BodyTemp50$Pulse)
+```
+
+### (b)
+Answer: Done (GOT IT)
+
+```{r}
+BodyTemp50 %>% summarise(Mean = mean(Pulse), Standard.Deviation = sd(Pulse)) %>% kable()
+```
+
+### (c)
+Answer: Done (GOT IT)
+
+```{r}
+mean.function <- function(x, index) {
+    d <- x[index] 
+    return(mean(d))  
+}
+Boot.BodyTemp <- boot(data = BodyTemp50$Pulse, 
+                      statistic = mean.function, 
+                      R = 10000)
+head(Boot.BodyTemp$t)
+tail(Boot.BodyTemp$t)
+```
+
+### (d)
+Answer: Done (GOT IT)
+
+```{r}
+Boot.BodyTemp.graph <- data.frame(xbar = Boot.BodyTemp$t)
+ggplot(Boot.BodyTemp.graph, aes(x = xbar)) +
+    geom_histogram() + 
+    ggtitle('Estimated Sampling distribution of the bootstrap replicates (means)')
+Boot.BodyTemp.graph %>% 
+  summarise(Mean.value = mean(Boot.BodyTemp$t), 
+            Standard.Deviation.value = sd(Boot.BodyTemp$t)) %>% kable()
+```
+
+### (e)
+Answer: Done (GOT IT)
+
+95% confidence interval: (middle)
+
+```{r}
+quantile(Boot.BodyTemp$t, probs = c(.025, .975))
+```
+
+### (f)
+Answer: Done (GOT IT)
+
+$$
+(\bar{x} - 2*\hat{\sigma}_{\bar{x}}, \bar{x} + 2*\hat{\sigma}_{\bar{x}})
+$$
+```{r}
+paste0("(", (mean(Boot.BodyTemp$t) - 2*sd(Boot.BodyTemp$t)),
+       ", ", 
+       (mean(Boot.BodyTemp$t) + 2*sd(Boot.BodyTemp$t)), ")")
+```
+The results are almost identical to the higher end of the interval calculated in 1(e).
+
+Could also use the *boot.ci* function:
+```{r}
+boot.ci(boot.out = Boot.BodyTemp, type = c("norm", "basic", "perc", "bca"))
+```
+
+## Question 2
+
+### (a)
+Answer: Done (GOT IT)
+
+```{r}
+data(EmployedACS, package = 'Lock5Data')
+hist(EmployedACS$HoursWk)
+```
+
+It is not uniform and the graph appears to be right skewed a bit, as per my visual delineation.
+
+### (b)
+Answer: Done (GOT IT)
+
+```{r}
+EmployedACS %>% summarise(Mean = mean(HoursWk), Standard.Deviation = sd(HoursWk)) %>% 
+  kable()
+```
+
+### (c)
+Answer: Done (GOT IT)
+
+```{r}
+mean.function <- function(x, index) {
+  d <- x[index]    
+  return(mean(d))
+}
+Boot.EmployedACS <- boot(data = EmployedACS$HoursWk, 
+                         statistic = mean.function, 
+                         R = 10000)
+head(Boot.EmployedACS$t)
+tail(Boot.EmployedACS$t)
+```
+
+### (d)
+Answer: Done (GOT IT)
+
+```{r}
+Boot.EmployedACS.graph <- data.frame(xbar = Boot.EmployedACS$t)
+ggplot(Boot.EmployedACS.graph, aes(x = xbar)) +
+  geom_histogram() + 
+  ggtitle('Estimated Sampling distribution of bootstrap replicates (means)' )
+Boot.EmployedACS.graph %>% 
+  summarise(Mean.value = mean(Boot.EmployedACS$t), 
+            Standard.Deviation.value = sd(Boot.EmployedACS$t)) %>% 
+  kable()
+```
+
+### (e)
+Answer: Done (GOT IT)
+
+```{r}
+quantile(Boot.EmployedACS$t, probs = c(.025, .975))
+```
+
+### (f)
+Answer: Done (GOT IT)
+
+$$
+(\bar{x} - 2*\hat{\sigma}_{\bar{x}}, \bar{x} + 2*\hat{\sigma}_{\bar{x}})
+$$
+```{r}
+paste0("(", (mean(Boot.EmployedACS$t) - 2*sd(Boot.EmployedACS$t)), 
+       ", ", 
+       (mean(Boot.EmployedACS$t) + 2*sd(Boot.EmployedACS$t)), ")")
+```
+The results are almost identical to the interval calculated in 2(e).
+
+Again, I could also use the *boot.ci* function here:
+
+```{r}
+boot.ci(boot.out = Boot.EmployedACS, type = c("norm", "basic", "perc", "bca"))
+```
+
+## Question 3
+
+### (a)
+Answer: Done (GOT IT)
+
+```{r}
+data(BodyTemp50, package = 'Lock5Data')
+standard.deviation.function <- function(x, index) {
+    d <- x[index] 
+    return(sd(d))  
+}
+```
+
+### (b)
+Answer: Done (GOT IT)
+
+```{r}
+Boot.BodyTemp <- boot(data = BodyTemp50$Pulse, 
+                      statistic = standard.deviation.function, 
+                      R = 10000)
+```
+
+### (c)
+Answer: Done (GOT IT)
+
+```{r}
+quantile(Boot.BodyTemp$t, probs = c(.025, .975))
+```

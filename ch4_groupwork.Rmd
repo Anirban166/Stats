@@ -78,14 +78,28 @@ mosaic::xpnorm(q = 296, mean = 298, sd = 3)
 ### (b)
 Answer: Done (GOT IT)
 
+```{r}
+mosaic::xpnorm(q = 296, mean = 298, sd = 3/sqrt(6))
+```
+
 ### (c)
 Answer: Done (GOT IT)
+
+```{r}
+mosaic::xpnorm(q = 298, mean = 298, sd = 3)
+```
 
 ### (d)
 Answer: Done (GOT IT)
 
+```{r}
+mosaic::xpnorm(q = c(297, 299), mean = 298, sd = 3)
+```
+
 ### (e)
 Answer: Done (GOT IT)
 
-### (f)
-Answer: Done (GOT IT)
+No, the filling machine isn't out of calibration, given that the fill amount ($\mu$ = 300) is within one standard deviation (±3) of the sample mean (298).
+```{r}
+mosaic::xpnorm(q = 298, mean = 300, sd = 3)
+```

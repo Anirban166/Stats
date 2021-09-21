@@ -98,7 +98,7 @@ mosaic::xpnorm(q = c(297, 299), mean = 298, sd = 3/sqrt(10))
 ### (e)
 Answer: Done (GOT IT)
 
-Yes, this would indeed be the evidence (or provide the required details to reach the conclusion) that the filling machine is out of calibration, given that the fill amount ($\mu$ = 300 > 298 + standard deviation value with a probability of occurrence) is not within even one standard deviation ($±3/\sqrt{50} = ±0.4242641$; one standard deviation = $298±0.4242641$) of the sample mean (298), let alone three standard deviations ($298±1.272792$, 99.7% probability). It has zero probability of being in calibration.
+Yes, this would indeed be the evidence (or provide the required details to reach the conclusion) that the filling machine is out of calibration, given that the fill amount ($\mu$ = 300 > 298 + standard deviation value with a probability of occurrence) is not within even one standard deviation ($\pm3/\sqrt{50} = \pm0.4242641$; one standard deviation = $298\pm0.4242641$) of the sample mean (298), let alone three standard deviations ($298\pm1.272792$, 99.7% probability). It has zero probability of being in calibration.
 ```{r}
 mosaic::xpnorm(q = 298, mean = 300, sd = 3/sqrt(50))
 ```

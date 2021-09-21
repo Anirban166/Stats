@@ -1,0 +1,91 @@
+---
+title: "Chapter 4 Homework"
+author: "Brit Riggs, Anirban Chetia"
+date: "9/21/2021"
+output: pdf_document
+---
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+suppressPackageStartupMessages({
+library(knitr)
+library(dplyr)
+library(boot)
+library(mosaic)
+library(ggplot2)
+})
+```
+
+## Question 1
+
+### (a)
+Answer: Done (GOT IT)
+
+```{r}
+1 - mosaic::xpnorm(q = 230, mean = 222, sd = 5)
+```
+
+### (b)
+Answer: Done (GOT IT)
+$$
+Expected\ value,\ E(\bar{X}) = \mu = 222
+$$
+
+### (c)
+Answer: Done (GOT IT)
+
+$$Variance,\ Var(\bar{X}) = \sigma^2_{\bar{X}} = \sigma^2/n = 25/6 = 4.1{\bar{6}}$$
+
+### (d)
+Answer: Done (GOT IT)
+
+$$Standard Deviation,\ Std(\bar{X}) = \sqrt{\sigma^2_{\bar{X}}} = \sigma/\sqrt{n} = 5/\sqrt{6} = 2.0416$$
+
+### (e)
+Answer: Done (GOT IT)
+
+```{r}
+1 - mosaic::xpnorm(q = 230, mean = 222, sd = sqrt(25/6))
+```
+
+## Question 2
+
+### (a)
+Answer: Done (GOT IT)
+
+```{r}
+mosaic::xpnorm(q = 9, mean = 10, sd = 1.5)
+```
+
+### (b)
+Answer: Done (GOT IT)
+
+Here n = 5, therefore:
+$$Standard Deviation,\ Std(\bar{X}) = \sqrt{\sigma^2_{\bar{X}}} = \sigma/\sqrt{n} = 1.5/\sqrt{5} = 0.67082039325$$
+
+```{r}
+mosaic::xpnorm(q = 9, mean = 10, sd = 1.5/sqrt(5))
+```
+
+## Question 3
+
+### (a)
+Answer: Done (GOT IT)
+
+```{r}
+mosaic::xpnorm(q = 296, mean = 298, sd = 3)
+```
+
+### (b)
+Answer: Done (GOT IT)
+
+### (c)
+Answer: Done (GOT IT)
+
+### (d)
+Answer: Done (GOT IT)
+
+### (e)
+Answer: Done (GOT IT)
+
+### (f)
+Answer: Done (GOT IT)

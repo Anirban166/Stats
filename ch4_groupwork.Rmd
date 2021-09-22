@@ -5,7 +5,6 @@ date: "9/21/2021"
 output: pdf_document
 ---
 
-
 ```{r, message = FALSE, warning = FALSE, echo = FALSE}
 suppressPackageStartupMessages({
 library(knitr)
@@ -102,7 +101,7 @@ mosaic::xpnorm(q = 299, mean = 298, sd = 3/sqrt(10)) - mosaic::xpnorm(q = 297, m
 mosaic::xpnorm(q = 299, mean = 298, sd = 3/10) - mosaic::xpnorm(q = 297, mean = 298, sd = 3/10)
 ```
 
-$\therefore$ With the mean of a sample size of 100 bottles ($n = 100$), the probability of the selected bottles to be within 1ml ($\pm$) of the mean ($\mu =298$) is a hundred percent. (calculated value will be ~1)
+$\therefore$ With a sample size of 100 bottles ($n = 100$), the probability of the selected bottles to be within 1ml ($\pm$) of the mean ($\mu =298$) is a hundred percent. (calculated value will be ~1)
 
 ### (e)
 Answer: Done (GOT IT)

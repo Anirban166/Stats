@@ -5,6 +5,7 @@ date: "9/21/2021"
 output: pdf_document
 ---
 
+
 ```{r, message = FALSE, warning = FALSE, echo = FALSE}
 suppressPackageStartupMessages({
 library(knitr)
@@ -47,6 +48,8 @@ Answer: Done (GOT IT)
 1 - mosaic::xpnorm(q = 230, mean = 222, sd = sqrt(25/6))
 ```
 
+$\therefore$, Probability of sample mean being greater than 230ml = 0
+
 ## Question 2
 
 ### (a)
@@ -86,19 +89,26 @@ mosaic::xpnorm(q = 296, mean = 298, sd = 3/sqrt(6))
 Answer: Done (GOT IT)
 
 ```{r}
-mosaic::xpnorm(q = c(297, 299), mean = 298, sd = 3)
+mosaic::xpnorm(q = 299, mean = 298, sd = 3) - mosaic::xpnorm(q = 297, mean = 298, sd = 3)
 ```
 
 ### (d)
 Answer: Done (GOT IT)
 
 ```{r}
-mosaic::xpnorm(q = c(297, 299), mean = 298, sd = 3/sqrt(10))
+mosaic::xpnorm(q = 299, mean = 298, sd = 3/sqrt(10)) - mosaic::xpnorm(q = 297, mean = 298, sd = 3/sqrt(10))
 ```
+```{r}
+mosaic::xpnorm(q = 299, mean = 298, sd = 3/10) - mosaic::xpnorm(q = 297, mean = 298, sd = 3/10)
+```
+
+$\therefore$ With the mean of a sample size of 100 bottles ($n = 100$), the probability of the selected bottles to be within 1ml ($\pm$) of the mean ($\mu =298$) is a hundred percent. (calculated value will be ~1)
+
 ### (e)
 Answer: Done (GOT IT)
 
-Yes, this would indeed be the evidence (or provide the required details to reach the conclusion) that the filling machine is out of calibration, given that the fill amount ($\mu$ = 300 > 298 + standard deviation value with a probability of occurrence) is not within even one standard deviation ($\pm3/\sqrt{50} = \pm0.4242641$; one standard deviation = $298\pm0.4242641$) of the sample mean (298), let alone three standard deviations ($298\pm1.272792$, 99.7% probability). It has zero probability of being in calibration.
+Yes, this would indeed be the evidence (or provide the required details to reach the conclusion) that the filling machine is out of calibration, given that the fill amount ($\mu$ = 300 > 298 + standard deviation value with a probability of occurrence) is not within even one standard deviation ($\pm3/\sqrt{50} = \pm0.4242641$; one standard deviation = $298\pm0.4242641$) of the sample mean (298), let alone three standard deviations ($298\pm1.272792$, 99.7% probability). It is certain that the machine is out of calibration.
 ```{r}
 mosaic::xpnorm(q = 298, mean = 300, sd = 3/sqrt(50))
 ```
+$\therefore$ Probability of the filling machine to be in calibration = $0$

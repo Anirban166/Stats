@@ -1,0 +1,132 @@
+---
+title: "Chapter 5 Homework"
+author: "Brit Riggs, Anirban Chetia"
+date: "9/23/2021"
+output: pdf_document
+---
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+suppressPackageStartupMessages({
+library(knitr)
+library(dplyr)
+library(boot)
+library(mosaic)
+library(ggplot2)
+})
+```
+
+## Question 1
+Answer: Done (GOT IT)
+
+## Question 2
+Answer: Done (GOT IT)
+
+## Question 3
+Answer: Done (GOT IT)
+
+## Question 4
+
+### (a)
+Answer: Done (GOT IT)
+
+```{r}
+data(FloridaLakes, package = 'Lock5Data')
+mean.function <- function(x, index) {
+  d <- x[index]    
+  return(mean(d))
+}
+Boot.FloridaLakes <- boot(data = FloridaLakes$AvgMercury, statistic = mean.function, R = 10000) #10000
+```
+
+Required confidence interval:
+$$
+\bar{x}\pm t^{(1-\alpha)}_{df}*\sigma/\sqrt{n}
+$$
+
+```{r}
+quantile(Boot.FloridaLakes$t, probs = c(.025, .925))
+```
+
+### (b)
+Answer: Done (GOT IT)
+```{r}
+n <- length(FloridaLakes$AvgMercury)
+df <- n - 1
+c = 0.9
+alpha = 1 - c
+xbar <- mean(FloridaLakes$AvgMercury)
+std.dev <- sd(FloridaLakes$AvgMercury)
+mosaic::xqt(1 - (alpha/2), df)
+upper.limit <- xbar + qt(1 - (alpha/2), df)*(std.dev/sqrt(n))
+lower.limit <- xbar - qt(1 - (alpha/2), df)*(std.dev/sqrt(n))
+```
+
+Required confidence interval:
+$$
+\bar{x}\pm t^{(1-\alpha)}_{df}*\sigma/\sqrt{n}
+$$
+
+```{r}
+paste0("(", lower.limit, ", ", upper.limit, ")")
+```
+
+### (c)
+Answer: Done (GOT IT)
+
+They are almost the same.
+
+## Question 5
+
+### (a)
+Answer: Done (GOT IT)
+
+```{r}
+data(Cereal, package = 'Lock5Data')
+mean.function <- function(x, index) {
+  d <- x[index]    
+  return(mean(d))
+}
+Boot.Cereal <- boot(data = Cereal$Sugars, statistic = mean.function, R = 10000)
+```
+
+Required confidence interval:
+$$
+\bar{x}\pm t^{(1-\alpha)}_{df}*\sigma/\sqrt{n}
+$$
+
+```{r}
+quantile(Boot.Cereal$t, probs = c(.025, .925))
+```
+
+### (b)
+Answer: Done (GOT IT)
+
+```{r}
+n <- length(Cereal$Sugars)
+df <- n - 1
+c = 0.9
+alpha = 1 - c
+xbar <- mean(Cereal$Sugars)
+std.dev <- sd(Cereal$Sugars)
+mosaic::xqt(1 - (alpha/2), df)
+upper.limit <- xbar + qt(1 - (alpha/2), df)*(std.dev/sqrt(n))
+lower.limit <- xbar - qt(1 - (alpha/2), df)*(std.dev/sqrt(n))
+```
+
+Required confidence interval:
+$$
+\bar{x}\pm t^{(1-\alpha)}_{df}*\sigma/\sqrt{n}
+$$
+```{r}
+paste0("(", lower.limit, ", ", upper.limit, ")")
+```
+
+### (c)
+Answer: Done (GOT IT)
+
+They are almost the same.
+
+### (d)
+Answer: Done (GOT IT)
+Irrespective of how nutritious the cereals are, we do need to take into account their popularity among the American population and thus their ability to survive in the food market. 
+Just their nutritional value isn't going to suffice for the data set (or it might not signify everything that we require), we also need statistics on their market value and the rates of them being sold.

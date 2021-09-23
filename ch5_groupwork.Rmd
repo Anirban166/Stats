@@ -16,12 +16,48 @@ library(ggplot2)
 ```
 
 ## Question 1
+
+```{r}
+xbar1 <- 11.2
+s1 <- 1.3
+n1 <- 40
+cutoff1 <- qt(0.95,df=n1-1)
+
+(lower_ci1 <- xbar1-(cutoff1 * (s1/sqrt(n1)) ))
+(upper_ci1 <- xbar1+(cutoff1 * (s1/sqrt(n1)) ))
+```
+
+The 90% confidence interval is (10.85, 11.55).
+
 Answer: Done (GOT IT)
 
 ## Question 2
+
+```{r}
+xbar2 <- 4.2
+s2 <- 1.1
+n2 <- 100
+cutoff2 <- qt(0.975,df=n2-1)
+
+(lower_ci2 <- xbar2-(cutoff2 * (s2/sqrt(n2)) ))
+(upper_ci2 <- xbar2+(cutoff2 * (s2/sqrt(n2)) ))
+```
+
+The 95% confidence interval is (3.98, 4.42).
+
 Answer: Done (GOT IT)
 
 ## Question 3
+
+```{r}
+sigma3 <- 4
+ME3 <- 1
+cutoff3 <- qnorm(0.995)
+(n <- (cutoff3 * (sigma3/ME3))^2)
+```
+
+The sample size should be around 107.
+
 Answer: Done (GOT IT)
 
 ## Question 4

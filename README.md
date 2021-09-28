@@ -1,6 +1,9 @@
 # STA-570
 
 # Cheatsheet
+- General
+  - Prefer Bootstrap confidence intervals
+
 - Chapter 1
   - 
 

@@ -17,10 +17,10 @@
   -
 
 - Chapter 5
-  - Margin of Error (M.E.) = z(1-alpha/2) = std\.dev/sqrt(n)
+  - Margin of Error (M.E.) = z<sub>(1-alpha/2)</sub> = std\.dev/sqrt(n)
   - C.I. = xbar plusminus Margin of Error
-  - M.E./(Z(1-alpha/2)\*sd) = sqrt(n)
-  - n = (Z(1-alpha/2)\*sd)/M.E.)^2
+  - M.E./(Z<sub>(1-alpha/2)</sub>\*sd) = sqrt(n)
+  - => n = (Z<sub>(1-alpha/2)</sub>\*sd)/M.E.)<sup>2</sup>
 
 - Chapter 6
   - Significance testing steps:

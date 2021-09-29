@@ -20,7 +20,7 @@ library(ggplot2)
 ```
 
 ```{r}
-Q1.sample <- c(5.1, 4.9, 5.6,	4.2, 4.8,	4.5, 5.3,	5.2)
+Q1.sample <- c(5.1, 4.9, 5.6, 4.2, 4.8, 4.5, 5.3, 5.2)
 kable(c(Mean = mean(Q1.sample), Standard.Deviation = sd(Q1.sample)))
 ```
 
@@ -39,6 +39,10 @@ Required confidence interval:
 $$
 \bar{x}\pm t^{(1-\alpha)}_{df}*\sigma/\sqrt{n}
 $$
+$$
+or\ (\bar{x} - t^{(1-\alpha)}_{df}*\sigma/\sqrt{n},\ \bar{x} + t^{(1-\alpha)}_{df}*\sigma/\sqrt{n})
+$$
+
 ```{r}
 paste0("(", lower.limit, ", ", upper.limit, ")")
 ```
@@ -52,8 +56,7 @@ mean.function <- function(x, index) {
   d <- x[index]    
   return(mean(d))
 }
-Boot.sample <- boot(data = Q1.sample,
-                    statistic = mean.function, R = 10000)
+Boot.sample <- boot(data = Q1.sample, statistic = mean.function, R = 10000)
 ```
 
 Required confidence interval:
@@ -67,34 +70,33 @@ ggplot(Boot.sample.graph, aes(x = xbar)) +
     geom_histogram() + 
     ggtitle('Estimated Sampling distribution of bootstrap replicates (means)' )
 ```
-The distribution that I observe (via a histogram of the bootstrap replicates) is almost equivalent to that of a normal distribution (in which case, my assumption of it being normal is true), which indicates that my assumption in 1(c) is true or valid. (i.e. the sample size n is large enough to apply the CLT with a normal-like distribution)
+The distribution that I observe (via a histogram of the bootstrap replicates) is almost equivalent to that of a normal distribution (in which case, my assumption of it being normal is true), which indicates that my assumption in 1(c) is true or valid. (i.e. the sample size 'n' is large enough to apply the CLT with a normal-like distribution)
 
 ### (d)
 Answer: Done (GOT IT)
 
 ```{r}
-# 1 sided hypothesis test that the mean oxygen level is less than 5ppm, alpha = 0.05 or 1 - 0.95 (c)
-u0 = 5 #ppm
-alpha = 0.05
-df = n - 1
-t.crit <- qt(alpha, df)
-x.crit <- t.crit*(sd(Q1.sample)/sqrt(n)) + u0
+u0 = 5
+# alpha = 0.05
+# df = n - 1
+# t.crit <- qt(alpha, df)
+# x.crit <- t.crit*(sd(Q1.sample)/sqrt(n)) + u0
+# $$
+# t_{crit} = t^{\alpha}_{df} = -1.894579
+# $$
+
 # pvalue of the test statistic:
 test.statistic <- (mean(Q1.sample)-u0)/(sd(Q1.sample)/sqrt(n))
 pvalue = pt(test.statistic, df)
 pvalue
 ```
-We obtained a p-value > 0.05, which is not statistically significant and indicates strong evidence for the null hypothesis, i.e. the mean oxygen level is less than 5ppm, or at least that we cannot reject our null hypothesis.
-
-$$
-t_{crit} = t^{\alpha}_{df} = -1.894579
-$$
+We obtained a p-value > 0.05, which is not statistically significant and indicates strong evidence for the null hypothesis, i.e. this suggests the mean oxygen level can indeed be less than 5ppm, or at least the fact that we cannot reject our null hypothesis from the taken test statistic.
 
 ### (e)
 Answer: Done (GOT IT)
 
 ```{r}
-t.test(c(5.1, 4.9, 5.6,	4.2, 4.8,	4.5, 5.3,	5.2), alternative = "two.sided")
+t.test(c(5.1, 4.9, 5.6, 4.2, 4.8, 4.5, 5.3, 5.2), alternative = "two.sided")
 ```
 
 ## Question 2
@@ -103,7 +105,7 @@ t.test(c(5.1, 4.9, 5.6,	4.2, 4.8,	4.5, 5.3,	5.2), alternative = "two.sided")
 Answer: Done (GOT IT)
 
 ```{r}
-Q2.sample <- c(91.9, 97.8, 111.4,	122.3, 105.4,	95.0, 103.8, 99.6, 96.6, 119.3,	104.8, 101.7)
+Q2.sample <- c(91.9, 97.8, 111.4, 122.3, 105.4, 95.0, 103.8, 99.6, 96.6, 119.3, 104.8, 101.7)
 n = length(Q2.sample)
 df = n - 1
 alpha = 1 - 0.9
@@ -115,6 +117,9 @@ Required confidence interval:
 $$
 \bar{x}\pm t^{(1-\alpha)}_{df}*\sigma/\sqrt{n}
 $$
+$$
+or\ (\bar{x} - t^{(1-\alpha)}_{df}*\sigma/\sqrt{n},\ \bar{x} + t^{(1-\alpha)}_{df}*\sigma/\sqrt{n})
+$$
 ```{r}
 paste0("(", lower.limit, ", ", upper.limit, ")")
 ```
@@ -122,7 +127,7 @@ paste0("(", lower.limit, ", ", upper.limit, ")")
 ### (b)
 Answer: Done (GOT IT)
 
-Let's consider the null hypothesis to be that the mean of the radons given by the radon detectors is equal t0 105 pico-curies/liter of radon. The alternative hypothesis would be that the radons given by the radon detectors is not equal to 105 pico-curies/liter of radon.
+Let's consider the null hypothesis to be that the mean of the radons given by the radon detectors is equal to 105 pico-curies/liter of radon. The alternative hypothesis would be that the radons given by the radon detectors is not equal to 105 pico-curies/liter of radon.
 
 $$
  H_o : \mu = 105\ pCi/l
@@ -130,7 +135,7 @@ $$
 $$
  H_a : \mu \neq 105\ pCi/l
 $$
-The reason why we are considering a two-sided test is because we require both sides, or both sides are significant for different purposes. For instance, a value > 105 pCi/l or at the higher end would be important as because more radons would pose as a health risk for us. On the other hand, a value < 105 pCi/l or at the lower end would be important as that may provide a false alarm for the radon detectors giving a signal at a lower level, which would be annoying and undesirable. 
+The reason why we are considering a two-sided test is because we require both sides, or both sides are significant to us for different purposes. For instance, a value > 105 pCi/l or at the higher end would be important as because more radons would pose as a health risk for us. On the other hand, a value < 105 pCi/l or at the lower end would be important as that may provide a false alarm for the radon detectors giving a signal at a lower level, which would be annoying and undesirable. 
 
 ### (c)
 Answer: Done (GOT IT)
@@ -157,3 +162,19 @@ Answer: Done (GOT IT)
 ```{r}
 
 ```
+
+## Question 3
+
+### (a)
+Answer: Done (GOT IT)
+
+### (b)
+Answer: Done (GOT IT)
+
+## Question 4
+
+### (a)
+Answer: Done (GOT IT)
+
+### (b)
+Answer: Done (GOT IT)

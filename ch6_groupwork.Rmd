@@ -184,18 +184,53 @@ x$statistic
 x$p.value
 ```
 
-## Question 3
+# Exercise 3
 
-### (a)
-Answer: Done (GOT IT)
+## 3a
 
-### (b)
-Answer: Done (GOT IT)
+```{r}
+# Xi ~ N(mu, var=5^2) sd=5
+# H0: mu = 5
+# HA: mu > 5
+# alpha = 0.05
+# t_crit = 1.895
+# xbar_crit = 1.895 * 5 + 5 = 8.35
 
-## Question 4
+# add the plot if mu = 11 and denote which areas represent alpha, beta, and the power below. PRINT!!
 
-### (a)
-Answer: Done (GOT IT)
+# if we observe a sample mean < xbarcrit, then we reject the null
 
-### (b)
-Answer: Done (GOT IT)
+# sample dist:
+# red vertical line at xbarcrit value 8.35
+# shade left of red line = alpha
+
+# if we assume mu = 11
+# center the normal distn at x = 11
+# draw line at cutoff value
+
+```
+
+## 3b
+
+```{r}
+# under same alternative value of mu = 11, find the probability of a Type II error. AKA calculate: Beta = P(Xbar < 8.35 | mu = 11)
+
+# Exercise 4
+
+## 4a
+
+```{r}
+power.t.test(delta=5, sd=20, sig.level=0.1, power=0.9, 
+             type="one.sample", alternative="one.sided")
+```
+
+Sample size should be about 106.
+
+## 4b
+
+```{r}
+power.t.test(delta=10, sd=20, sig.level=0.1, power=0.9, 
+             type="one.sample", alternative="one.sided")
+```
+
+Sample size should be around 28. Comment on diff

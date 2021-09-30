@@ -149,18 +149,39 @@ test.statistic <- (mean(Q2.sample)-u0)/(sd(Q2.sample)/sqrt(n))
 Answer: Done (GOT IT)
 
 ```{r}
-pvalue = pt(test.statistic, df)
-pvalue
+pvalue.left <- pt(test.statistic, df)
+pvalue.right <- 1 - pt(test.statistic, df, lower.tail = FALSE)
+pvalue <- pvalue.left + pvalue.right # or we could do pvalue * 2
 ```
 
 ### (e)
 Answer: Done (GOT IT)
 
+With $\alpha$ = 0.1, the pvalue $(~0.76)$ is still much greater than the former, hence we cannot reject the null hypothesis, which is the assumption that the mean of the radons given by the radon detectors is equal to 105 pico-curies/liter of radon.
+
 ### (f)
 Answer: Done (GOT IT)
 
 ```{r}
+x <- t.test(c(91.9, 97.8, 111.4, 122.3, 105.4, 95.0, 103.8, 99.6, 96.6, 119.3, 104.8, 101.7), 
+            alternative = "two.sided",
+            mu = 105,
+            conf.level = 0.9)
+x
+```
+(a) Confidence interval (90%):
+```{r}
+x$conf.int
+```
 
+(c) Test statistic:
+```{r}
+x$statistic
+```
+
+(d) A p-value: 
+```{r}
+x$p.value
 ```
 
 ## Question 3

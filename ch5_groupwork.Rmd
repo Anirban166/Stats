@@ -80,7 +80,7 @@ $$
 $$
 
 ```{r}
-quantile(Boot.FloridaLakes$t, probs = c(.025, .925))
+quantile(Boot.FloridaLakes$t, probs = c(.025, .975))
 ```
 
 ### (b)
@@ -88,7 +88,7 @@ Answer: Done (GOT IT)
 ```{r}
 n <- length(FloridaLakes$AvgMercury)
 df <- n - 1
-c = 0.9
+c = 0.95
 alpha = 1 - c
 xbar <- mean(FloridaLakes$AvgMercury)
 std.dev <- sd(FloridaLakes$AvgMercury)
@@ -132,7 +132,7 @@ $$
 $$
 
 ```{r}
-quantile(Boot.Cereal$t, probs = c(.025, .925))
+quantile(Boot.Cereal$t, probs = c(.05, .95))
 ```
 
 ### (b)

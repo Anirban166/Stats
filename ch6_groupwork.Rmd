@@ -85,7 +85,6 @@ u0 = 5
 # $$
 # t_{crit} = t^{\alpha}_{df} = -1.894579
 # $$
-
 # pvalue of the test statistic:
 test.statistic <- (mean(Q1.sample)-u0)/(sd(Q1.sample)/sqrt(n))
 pvalue = pt(test.statistic, df)
@@ -144,6 +143,7 @@ Answer: Done (GOT IT)
 ```{r}
 u0 = 105
 test.statistic <- (mean(Q2.sample)-u0)/(sd(Q2.sample)/sqrt(n))
+test.statistic
 ```
 
 ### (d)
@@ -153,6 +153,7 @@ Answer: Done (GOT IT)
 pvalue.left <- pt(test.statistic, df)
 pvalue.right <- 1 - pt(test.statistic, df, lower.tail = FALSE)
 pvalue <- pvalue.left + pvalue.right # or we could do pvalue * 2
+pvalue
 ```
 
 ### (e)
@@ -191,37 +192,22 @@ x$p.value
 Answer: Done (GOT IT)
 
 ```{r}
-# Xi ~ N(mu, var=5^2) sd=5
-# H0: mu = 5
-# HA: mu > 5
-# alpha = 0.05
-# t_crit = 1.895
-# xbar_crit = 1.895 * 5 + 5 = 8.35
-# add the plot if mu = 11 and denote which areas represent alpha, beta, and the power below. PRINT!!
-# if we observe a sample mean < xbarcrit, then we reject the null
-# sample dist:
-# red vertical line at xbarcrit value 8.35
-# shade left of red line = alpha
-# if we assume mu = 11
-# center the normal distn at x = 11
-# draw line at cutoff value
-
-#1-alpha = 0.95
+u0 <- 5
 mu = 11
 std.dev = 5
 sample.size = 8
 xbar <- std.dev/sqrt(sample.size)
 xbar.threshold <- u0 + qt(0.95, 7)*(xbar)
-Error.df <- data.frame(x = seq((mu-std.dev), (mu+std.dev), length.out = 1e3)) %>%
-mutate(y = dnorm(x, mean = 3, sd = xbar))
-Error.shade <- data.frame(x = seq(xbar.threshold, 3.3, length.out = 1e3)) %>%
-mutate(y = dnorm(x, mean = 3, sd = xbar))
+Error.df <- data.frame(x = seq(-2, 12, length.out = 1e3)) %>%
+mutate(y = dnorm(x, mean = 5, sd = xbar))
+Error.shade <- data.frame(x = seq(xbar.threshold, 15, length.out = 1e3)) %>%
+mutate(y = dnorm(x, mean = 5, sd = xbar))
 Null.Plot <- ggplot(Error.df, aes(x = x, y = y)) + geom_area(fill = "grey90") +
 geom_area(data = Error.shade, aes(x = x, y = y), fill = "grey25") +
 geom_line(size = 2) +
 geom_vline(xintercept = xbar.threshold, col = "black", linetype = "dashed", size = 1.5) +
-labs(title = latex2exp::TeX("Null Distribution $\\mu$ = 11"), y = "Density") +
-annotate("text", x = 3.1, y = 1, size = 10, col = "red", label = latex2exp::TeX("$\\alpha$"))
+labs(title = latex2exp::TeX("Null Distribution with $\\mu$ = 5 (null hypothesis)"), y = "Density") +
+annotate("text", x = 8.7, y = 0.15, size = 10, col = "red", label = latex2exp::TeX("$\\alpha$")) + xlim(-3, 12)  
 Null.Plot
 ```
 
@@ -229,8 +215,32 @@ Null.Plot
 Answer: Done (GOT IT)
 
 ```{r}
-# under same alternative value of mu = 11, find the probability of a Type II error. 
-#AKA calculate: Beta = P(Xbar < 8.35 | mu = 11)
+u0 <- 5
+mu = 11
+std.dev = 5
+sample.size = 8
+xbar <- std.dev/sqrt(sample.size)
+xbar.threshold <- u0 + qt(0.95, 7)*(xbar)
+Error.df <- data.frame(x = seq(2, 18, length.out = 1e3)) %>%
+mutate(y = dnorm(x, mean = 11, sd = xbar))
+Error.shade <- data.frame(x = seq(-8, xbar.threshold, length.out = 1e3)) %>%
+mutate(y = dnorm(x, mean = 11, sd = xbar))
+Alt.Plot <- ggplot(Error.df, aes(x = x, y = y)) + geom_area(fill = "grey90") +
+geom_area(data = Error.shade, aes(x = x, y = y), fill = "grey25") +
+geom_line(size = 2) +
+geom_vline(xintercept = xbar.threshold, col = "black", linetype = "dashed", size = 1.5) +
+labs(title = latex2exp::TeX("Alternative Distribution with $\\mu$ = 11 (alternative hypothesis)"), y = "Density") +
+annotate("text", x = 7.8, y = 0.10, size = 10, col = "red", label = latex2exp::TeX("$\\beta$")) + xlim(0, 18)  
+Alt.Plot
+```
+Value of $\beta$ when using the z-distribution:
+```{r}
+pnorm(8.35, mean = 11, sd = 5/sqrt(8))
+```
+
+Value of $\beta$ when using the t-distribution:
+```{r}
+pt(8.35, df = 7)
 ```
 
 ## Question 4
@@ -243,7 +253,7 @@ beta = 0.1
 power = 1 - beta
 result <- power.t.test(delta = 5, sd = 20, sig.level = 0.1, power = power, 
              type = "one.sample", alternative = "one.sided")
-result$n
+ceiling(result$n)
 ```
 The sample size must be greater than 106.
 
@@ -253,6 +263,6 @@ Answer: Done (GOT IT)
 ```{r}
 result <- power.t.test(delta = 10, sd = 20, sig.level = 0.1, power = power, 
              type = "one.sample", alternative = "one.sided")
-result$n
+ceiling(result$n)
 ```
 The sample size must be greater than 28.

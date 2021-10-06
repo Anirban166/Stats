@@ -76,28 +76,31 @@ The distribution that I observe (via a histogram of the bootstrap replicates) is
 ### (d)
 Answer: Done (GOT IT)
 
+We are 95% confident that the mean dissolved oxygen is between 4.57 and 5.32 ppm, as computed to be the confidence interval on part (b) above. Because 5 ppm is within this interval, we can say that the data supports our hypothesis that the mean is 5 ppm.
+
+### (e)
+Answer: Done (GOT IT)
+
 ```{r}
 u0 = 5
-# alpha = 0.05
-# df = n - 1
-# t.crit <- qt(alpha, df)
-# x.crit <- t.crit*(sd(Q1.sample)/sqrt(n)) + u0
-# $$
-# t_{crit} = t^{\alpha}_{df} = -1.894579
-# $$
-# pvalue of the test statistic:
 test.statistic <- (mean(Q1.sample)-u0)/(sd(Q1.sample)/sqrt(n))
 pvalue = pt(test.statistic, df)
 pvalue
 ```
 We obtained a p-value > 0.05, which is not statistically significant and indicates strong evidence for the null hypothesis, i.e. this suggests the mean oxygen level can indeed be less than 5ppm, or at least the fact that we cannot reject our null hypothesis based on the taken test statistic.
 
-### (e)
+### (f)
 Answer: Done (GOT IT)
 
+(a) Confidence interval (95%):
 ```{r}
-t.test(c(5.1, 4.9, 5.6, 4.2, 4.8, 4.5, 5.3, 5.2), alternative = "two.sided")
+t.test(c(5.1, 4.9, 5.6, 4.2, 4.8, 4.5, 5.3, 5.2), alternative = "two.sided")$conf.int
 ```
+(e)
+```{r}
+t.test(c(5.1, 4.9, 5.6, 4.2, 4.8, 4.5, 5.3, 5.2), alternative = "less")$p.value
+```
+We obtained a p-value > 0.05, which is not statistically significant and indicates strong evidence for the null hypothesis, i.e. this suggests the mean oxygen level can indeed be less than 5ppm, or at least the fact that we cannot reject our null hypothesis based on the taken test statistic.
 
 ## Question 2
 
@@ -181,7 +184,7 @@ x$conf.int
 x$statistic
 ```
 
-(d) A p-value: 
+(d) p-value: 
 ```{r}
 x$p.value
 ```
@@ -191,7 +194,7 @@ x$p.value
 ### (a)
 Answer: Done (GOT IT)
 
-```{r}
+```{r warning = FALSE}
 u0 <- 5
 mu = 11
 std.dev = 5
@@ -202,19 +205,20 @@ Error.df <- data.frame(x = seq(-2, 12, length.out = 1e3)) %>%
 mutate(y = dnorm(x, mean = 5, sd = xbar))
 Error.shade <- data.frame(x = seq(xbar.threshold, 15, length.out = 1e3)) %>%
 mutate(y = dnorm(x, mean = 5, sd = xbar))
-Null.Plot <- ggplot(Error.df, aes(x = x, y = y)) + geom_area(fill = "grey90") +
+ggplot(Error.df, aes(x = x, y = y)) + geom_area(fill = "grey90") +
 geom_area(data = Error.shade, aes(x = x, y = y), fill = "grey25") +
 geom_line(size = 2) +
 geom_vline(xintercept = xbar.threshold, col = "black", linetype = "dashed", size = 1.5) +
-labs(title = latex2exp::TeX("Null Distribution with $\\mu$ = 5 (null hypothesis)"), y = "Density") +
-annotate("text", x = 8.7, y = 0.15, size = 10, col = "red", label = latex2exp::TeX("$\\alpha$")) + xlim(-3, 12)  
-Null.Plot
+labs(title = latex2exp::TeX("Null Distribution with $\\mu$ = 5 (null hypothesis)"), 
+     y = "Density") +
+annotate("text", x = 8.7, y = 0.15, size = 10, col = "red", 
+         label = latex2exp::TeX("$\\alpha$")) + xlim(-3, 12)  
 ```
 
 ### (b)
 Answer: Done (GOT IT)
 
-```{r}
+```{r warning = FALSE}
 u0 <- 5
 mu = 11
 std.dev = 5
@@ -225,22 +229,18 @@ Error.df <- data.frame(x = seq(2, 18, length.out = 1e3)) %>%
 mutate(y = dnorm(x, mean = 11, sd = xbar))
 Error.shade <- data.frame(x = seq(-8, xbar.threshold, length.out = 1e3)) %>%
 mutate(y = dnorm(x, mean = 11, sd = xbar))
-Alt.Plot <- ggplot(Error.df, aes(x = x, y = y)) + geom_area(fill = "grey90") +
+ggplot(Error.df, aes(x = x, y = y)) + geom_area(fill = "grey90") +
 geom_area(data = Error.shade, aes(x = x, y = y), fill = "grey25") +
 geom_line(size = 2) +
 geom_vline(xintercept = xbar.threshold, col = "black", linetype = "dashed", size = 1.5) +
-labs(title = latex2exp::TeX("Alternative Distribution with $\\mu$ = 11 (alternative hypothesis)"), y = "Density") +
-annotate("text", x = 7.8, y = 0.10, size = 10, col = "red", label = latex2exp::TeX("$\\beta$")) + xlim(0, 18)  
-Alt.Plot
+labs(title = latex2exp::TeX("Alternative Distribution with $\\mu$ = 11 (alternative hypothesis)"), 
+     y = "Density") +
+annotate("text", x = 7.8, y = 0.10, size = 10, col = "red", 
+         label = latex2exp::TeX("$\\beta$")) + xlim(0, 18)  
 ```
-Value of $\beta$ when using the z-distribution:
+Value of $\beta$: (using the z-distribution)
 ```{r}
-pnorm(8.35, mean = 11, sd = 5/sqrt(8))
-```
-
-Value of $\beta$ when using the t-distribution:
-```{r}
-pt(8.35, df = 7)
+pnorm(q = 8.35, mean = 11, sd = 5/sqrt(8))
 ```
 
 ## Question 4

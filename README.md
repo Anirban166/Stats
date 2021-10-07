@@ -4,8 +4,11 @@
 - General
   - Prefer Bootstrap confidence intervals than other CIs
   - [Probability Distributions in R](https://www.stat.umn.edu/geyer/old/5101/rlook.html)
+  - d-function(x) -> The height of the probability distribution/density at x (or == x)
+  - p-function(x) -> P(X ≤ x)
 
 - Chapter 1
+  - A sample is a subset of the population for which information is gathered. 
   - Categorical = non-numerical entries (states, gender, ethnicity), numerical(discrete = age if taken in years only, heart rate etc., continuous = height, weight, blood pressure etc.)
   - Median = middle element in the ordered set, corresponding to the 50th percentile, or the 2nd quantile, Mode = most frequently occuring element in the data set
   - IQR = difference between 1st and 3rd quantiles (or b/w 25% and 75%) = 3/4th observation - 1/4th observation when placed in order
@@ -15,8 +18,22 @@
   - co-efficient of variation = standard deviation / | mean |
   - Empirical rule: 68% of data occurs within 1 sd (both sides, otherwise 1/2 for a side), 95% within 2 sds, and 99.7% within 3 sds
 - Chapter 2
-  -
-  
+  - Probabilities of discrete random variables are additive, e.g. p(1 or 2) = P(1) + P(2)
+  - Expected value = sum (s x probability(s)), s -> obs.
+  - Variance = (s - Expected value)^2 x probability(s)
+  - Bernoulli random variables can only take the values 1 or 0 (P(p)=1, P(q) or P(1-p)=0)
+  - Probability mass function (pmf) of a binomial distribution: P(X=x) = n!/x!(n-x)! * pi^x * (1-pi)^(n-x)
+  - Binomial distribution Expected value = n\*pi, variance = n\*pi\*(1-pi)
+  - Poisson -> Deals with count data, with two or more events in separate time/space slots, expected no. of events in same period (time) or region (space) is same in all periods/regions of same size, and is given by lambda
+  - Pmf for poisson: lambda^(y) * e^(-lambda) / y! ; e = 2.718
+  - using R e.g.: P(Y <= x) -> ppois(x, lambda); P(Y = x) -> dpois(x, lambda), 1 - P(Y <= x) = P(Y > x) = P(Y >= x+1) -> 1 - ppois(x, lambda)
+  - Continuous random variables: 
+  	- uniform (binomial variation) -> infinite rational no.s between the interval (0,1) (using pdf instead of pmf)
+        - exponential (continuous analog of poisson) -> pdf is given by f(x) = lambda * e^(-lambda * x), for x>=0 and lambda>0, otherwise 0
+        - mean for exponential = 1/lambda, variance = 1/(lambda)^2
+        - normal distribution [pdf](https://bookdown.org/dereksonderegger/570/2-probability.html#normal-distribution) -> not gonna memorize lol
+        - X ~ N(mu, sigma^2) notation for X following normal distribution, Z = (X-mu)/sigma^2
+        - Standard normal -> mu = 0 and variance or sigma^2 = 1, i.e. X ~ N(0, 1), Z = X
 - Chapter 3
   -
    

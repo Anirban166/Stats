@@ -35,17 +35,17 @@
         - X ~ N(mu, sigma^2) notation for X following normal distribution, Z = (X-mu)/sigma^2
         - Standard normal -> mu = 0 and variance or sigma^2 = 1, i.e. X ~ N(0, 1), Z = X
 - Chapter 3
-  -
-   
+  - Bootstrapping -> Random sampling with replacement, a technique that allows estimation of the sampling distribution of almost any statistic (mean, std.dev etc.) using random sampling methods
+  - X% Confidence intervals: we are x% confident that the mean (or statistic) lies between (lower.limit, upper.limit) -> can use to support a hypothesis value  
+  - In other words, the bootstrap replicates or sample means (when replicated in large no.) do not exceed those limits, and can give a good estimate of the true mean to be within that range.
 - Chapter 4
-  -
-
+  - For iid, sd = sigma/root(n), or var = sigma^2/n => use this modified sd when n is supplied, CLT can be applied, when we are considering xbar, and while using the empirical formula (1 sd = sigma/root(n))
+  - just use mosaic::xpnorm(q, mean, sd) functions wisely. P(X<=x) = P(X<x) (given that discrete points = 0) -> xpnorm or pnorm(...), P(X>x) = 1 - pnorm(...), same deal.
 - Chapter 5
   - Margin of Error (M.E.) = z<sub>(1-alpha/2)</sub> = std\.dev/sqrt(n)
   - C.I. = xbar plusminus Margin of Error
   - M.E./(Z<sub>(1-alpha/2)</sub>\*sd) = sqrt(n)
   - => n = (Z<sub>(1-alpha/2)</sub>\*sd)/M.E.)<sup>2</sup>
-
 - Chapter 6
   - Significance testing steps:
   - Step 1: Pick alpha = significance level (for e.g. 95% = 0.05 = 1 = 0.95) = probability of erroneously suggesting change

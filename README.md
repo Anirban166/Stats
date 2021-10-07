@@ -2,7 +2,8 @@
 
 # Cheatsheet
 - General
-  - Prefer Bootstrap confidence intervals
+  - Prefer Bootstrap confidence intervals than other CIs
+  - [Probability Distributions in R](https://www.stat.umn.edu/geyer/old/5101/rlook.html)
 
 - Chapter 1
   - 

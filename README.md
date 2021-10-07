@@ -6,8 +6,14 @@
   - [Probability Distributions in R](https://www.stat.umn.edu/geyer/old/5101/rlook.html)
 
 - Chapter 1
-  - 
-
+  - Categorical = non-numerical entries (states, gender, ethnicity), numerical(discrete = age if taken in years only, heart rate etc., continuous = height, weight, blood pressure etc.)
+  - Median = middle element in the ordered set, corresponding to the 50th percentile, or the 2nd quantile, Mode = most frequently occuring element in the data set
+  - IQR = difference between 1st and 3rd quantiles (or b/w 25% and 75%) = 3/4th observation - 1/4th observation when placed in order
+  - Boxplots are for plotting categorical data, while histograms are for plotting numerical data
+  - The variance formula for a sample has (n-1) in the denominator instead of n like in the formula for the population variance because that acts as a compensation for using one degree of freedom on the mean (we would be underestimating the population variance if the sample too would be just division by n)
+  - Mean squared error = sum of squared error / n-1 or SSE/df
+  - co-efficient of variation = standard deviation / | mean |
+  - Empirical rule: 68% of data occurs within 1 sd (both sides, otherwise 1/2 for a side), 95% within 2 sds, and 99.7% within 3 sds
 - Chapter 2
   -
   

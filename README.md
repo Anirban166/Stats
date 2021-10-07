@@ -48,12 +48,13 @@
   - => n = (Z<sub>(1-alpha/2)</sub>\*sd)/M.E.)<sup>2</sup>
 - Chapter 6
   - Significance testing steps:
-  - Step 1: Pick alpha = significance level (for e.g. 95% = 0.05 = 1 = 0.95) = probability of erroneously suggesting change
+  - Step 1: Pick alpha = significance level (for e.g. 95% = 0.05 = 1 - 0.95) = probability of erroneously suggesting change
   - Step 2: What variable and parameters interest you about which population?
   - Step 3: What is the past or popular or reasonable value for parameter above? (for H<sub>0</sub> or the null hypothesis)
   - P(rejecting null | -> indicating more evidence towards the alternative hypothesis)
   - make the table for type I and II errors, (alpha/beta, true/false positives)
-  - alpha = probability of rejecting the null incorrectly
+  - alpha = probability of rejecting the null hypothesis incorrectly, or when it is true (type I error)
+  - beta = probability of accepting the null hypothesis when it is false (type II error)
   - Power = 1 - beta for a given alternative, and it implies the probability of correctly rejecting the null hypothesis (i.e. it is the probability of rejecting the null hypothesis when in fact it is false)
   - Power is the probability of making a correct decision (to reject the null hypothesis) when the null hypothesis is false. It is the probability of avoiding a Type II error.
   - As delta increases, so does the power of the test

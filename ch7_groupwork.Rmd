@@ -49,6 +49,19 @@ library(ggplot2)
 # special_df = ( (V1 + V2)^2 ) / ( (V1^2/n1-1) + (V2^2/n2-1) )
 ```
 
+(a) Null Hypothesis:
+
+$$
+ H_o : \bar{x}_{1}-\bar{x}_{2} = 0 }\$
+$$
+
+(b) Alternate Hypothesis:
+
+$$
+ H_a : \bar{x}_{1}-\bar{x}_{2} > 0 }\$
+$$
+
+
 \textbf{GOT IT}
 
 # Exercise 2
@@ -129,3 +142,8 @@ quantile(Boot.FloridaLakes$t, probs = c(.025, .925))
 
 
 ## 5d
+
+Required confidence interval:
+$$
+\left(\bar{x}_{1}-\bar{x}_{2}\right)\pm t_{n_{1}+n_{2}-2}^{1-\alpha/2}\;\left(s_{pool}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}\right)
+$$

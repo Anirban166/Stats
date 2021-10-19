@@ -20,74 +20,87 @@ library(ggplot2)
 ```
 # Exercise 1
 
-## 1
+## 1a
+
+$\delta = \bar{x}_{1} - \bar{x}_{2}$  
+$H_{0}: \delta = 0$  
+$H_{a}: \delta > 0$  
 
 ```{r}
 # fracking
-# n1=21
-# xbar1=19.2
-# s1=30.3
+n1    <- 21
+xbar1 <- 19.2
+s1    <- 30.3
 
 # no fracking
-# n2=13
-# xbar2=1.1
-# s2=6.3
+n2    <- 13
+xbar2 <- 1.1
+s2    <- 6.3
 
-# alpha=0.05
+alpha <- 0.05
 
-# delta = mu1 - mu2
-# H0: delta = 0
-# Ha: delta > 0
+# b
+V1 <- s1^2/n1
+V2 <- s2^2/n2
+std_err <- sqrt( V1 + V2 )
 
-# V1 = s1^2/n1
-# V2 = s2^2/n2
+(test_statistic <- ( xbar1 - xbar2 ) / std_err)
+special_df <- ( (V1 + V2)^2 ) / ( (V1^2/n1-1) + (V2^2/n2-1) )
 
-# std_err = sqrt( V1 + V2 )
-
-# test_statistic = ( xbar1 - xbar2 ) / std_err
-
-# special_df = ( (V1 + V2)^2 ) / ( (V1^2/n1-1) + (V2^2/n2-1) )
+# c
+(1-pt(test_statistic, df=special_df))
 ```
+## 1d  
+we reject the null because p-val < alpha  
 
-(a) Null Hypothesis:
 
-$$
- H_o : \bar{x}_{1}-\bar{x}_{2} = 0 }\$
-$$
-
-(b) Alternate Hypothesis:
-
-$$
- H_a : \bar{x}_{1}-\bar{x}_{2} > 0 }\$
-$$
-
+## 1e  
+We reject that sites near fracking wells have the same methane levels as sites far from fracking wells. This means that we do have evidence supporting that methane levels are higher near fracking wells.
 
 \textbf{GOT IT}
 
 # Exercise 2
+
+$\delta = \bar{y} - \bar{x}$  
+$H_{0}: \delta = 0$  
+$H_{a}: \delta > 0$  
         
 ```{r}
-n = 30
-mean.y = 350000
-mean.x = 245000
-standardDeviation.y = 61900
-standardDeviation.x = 52100
-V1 = standardDeviation.y^2/n
-V2 = standardDeviation.x^2/n
-std_err = sqrt(V1 + V2)
-test_statistic = (mean.y - mean.x) / std_err
-test_statistic
+# male
+ny <- 30
+ybar <- 350000
+sy   <- 61900
+
+# female
+nx <- 30
+xbar <- 245000
+sx   <- 52100
+
+# c
+s_pool_squared <- (1/(ny + nx - 2))*( ((ny-1)*sy^2) + ((nx-1)*sx^2) )
+
+(test_statistic <- (ybar - xbar) / sqrt( (s_pool_squared/ny) + (s_pool_squared/nx) ))
+
+# d
+(1-pt(test_statistic, df=ny+nx-2))
 ```
+## 2d  
+we reject the null because p-val < alpha  
+
+
+## 2e  
+We reject that female and male candidates generally raise the same amount in their campaigns. This means that we do have evidence supporting that women generally raise less than male candidates.
+
 
 \textbf{GOT IT}
 
 # Exercise 3
 
 ```{r}
+data(Smiles, package="Lock5Data")
 
+Smiles %>% summarise(xbar=)
 ```
-
-The sample size should be around 107.
 
 \textbf{GOT IT}
 

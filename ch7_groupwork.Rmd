@@ -1,170 +1,201 @@
 ---
-title: "STA 570 -- Ch. 7 Homework"
+title: "STA 570 -- Ch. 7 Groupwork"
 author: "Brit Riggs, Anirban Chetia"
 date: "`r format(Sys.time(),  '%B %d, %Y')`"
 output: pdf_document
 ---
 
-# Help
+Answers to compare against for quick reference: (delete before submitting!)
 
-I understand all of the problems!
+1b - 2.1139, Satterthwaite's df
+
+1c - 0.0212
+
+2b - 7.108227, basic df
+
+2c - basically 0
+
+3b - 4.12 and 4.91, 1.52 and 1.68
+
+3c - -2, 0.045, -1.57 to -0.02
+
+4d - -0.71 to -0.27 (centered 95% CI) or -inf to -0.31 (left-tailed 95% CI)
 
 ```{r, message = FALSE, warning = FALSE, echo = FALSE}
 suppressPackageStartupMessages({
+library(boot)
 library(knitr)
 library(dplyr)
-library(boot)
 library(mosaic)
 library(ggplot2)
+library(latex2exp)
 })
 ```
-# Exercise 1
 
-## 1a
+## Exercise 1
+
+### (a)
+Answer: \textbf{Done (GOT IT)}
 
 $\delta = \bar{x}_{1} - \bar{x}_{2}$  
 $H_{0}: \delta = 0$  
 $H_{a}: \delta > 0$  
 
+### (b)
+Answer: \textbf{Done (GOT IT)}
+
 ```{r}
-# fracking
+# Fracking:
 n1    <- 21
 xbar1 <- 19.2
 s1    <- 30.3
-
-# no fracking
+# No fracking:
 n2    <- 13
 xbar2 <- 1.1
 s2    <- 6.3
-
-alpha <- 0.05
-
-# b
 V1 <- s1^2/n1
 V2 <- s2^2/n2
-std_err <- sqrt( V1 + V2 )
-
-(test_statistic <- ( xbar1 - xbar2 ) / std_err)
-special_df <- ( (V1 + V2)^2 ) / ( (V1^2/n1-1) + (V2^2/n2-1) )
-
-# c
-(1-pt(test_statistic, df=special_df))
+std_err <- sqrt(V1 + V2)
+(test_statistic <- (xbar1 - xbar2) / std_err)
 ```
-## 1d  
-we reject the null because p-val < alpha  
 
+### (c)
+Answer: \textbf{Done (GOT IT)}
 
-## 1e  
-We reject that sites near fracking wells have the same methane levels as sites far from fracking wells. This means that we do have evidence supporting that methane levels are higher near fracking wells.
+```{r}
+special_df <- ((V1 + V2)^2) / ((V1^2/n1-1) + (V2^2/n2-1))
+(1 - pt(test_statistic, df = special_df))
+```
 
-\textbf{GOT IT}
+### (d)
+Answer: \textbf{Done (GOT IT)}
 
-# Exercise 2
+We reject the null because p-value < $\alpha$ = 0.05.  
+
+### (e)
+Answer: \textbf{Done (GOT IT)} 
+
+We reject the null hypothesis that the sites near fracking wells have the same methane levels as the sites which are far from fracking wells. On the other hand, this means that we do have evidence supporting the alternative hypothesis, implying that methane levels are higher near fracking wells.
+
+## Exercise 2
+
+### (a)
+Answer: \textbf{Done (GOT IT)}
 
 $\delta = \bar{y} - \bar{x}$  
 $H_{0}: \delta = 0$  
 $H_{a}: \delta > 0$  
-        
+
+### (b)
+Answer: \textbf{Done (GOT IT)}
+
 ```{r}
 # male
 ny <- 30
 ybar <- 350000
 sy   <- 61900
-
 # female
 nx <- 30
 xbar <- 245000
 sx   <- 52100
 
-# c
-s_pool_squared <- (1/(ny + nx - 2))*( ((ny-1)*sy^2) + ((nx-1)*sx^2) )
+# works as well: (gonna ask why, maybe because n is same?)
+#V1 = sy^2/ny
+#V2 = sx^2/nx
+#std_err = sqrt(V1 + V2)
+#(test_statistic = (ybar - xbar) / std_err)
 
-(test_statistic <- (ybar - xbar) / sqrt( (s_pool_squared/ny) + (s_pool_squared/nx) ))
-
-# d
-(1-pt(test_statistic, df=ny+nx-2))
+s_pool_squared <- (1 / (ny + nx - 2)) * (((ny - 1) * sy^2) + ((nx - 1) * sx^2))
+(test_statistic <- (ybar - xbar) / sqrt((s_pool_squared / ny) + (s_pool_squared / nx)))
 ```
-## 2d  
-we reject the null because p-val < alpha  
 
-
-## 2e  
-We reject that female and male candidates generally raise the same amount in their campaigns. This means that we do have evidence supporting that women generally raise less than male candidates.
-
-
-\textbf{GOT IT}
-
-# Exercise 3
+### (c)
+Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-data(Smiles, package="Lock5Data")
-Smiles %>% group_by(Group) %>% summarise(Mean.value = mean(Leniency), Standard.Deviation.value = sd(Leniency)) %>% kable()
+(1 - pt(test_statistic, df = ny + nx - 2))
 ```
 
-\textbf{GOT IT}
+### (d)
+Answer: \textbf{Done (GOT IT)}
 
-# Exercise 4
+We reject the null because p-value < $\alpha$ = 0.05. 
 
-## 4a
+### (e)
+Answer: \textbf{Done (GOT IT)} 
+
+We reject the null hypothesis that the female and male candidates generally raise the same amount of money in their campaigns. On the other hand, this means that we do have evidence supporting the alternative hypothesis, which implies that women generally raise less money than male candidates.
+
+## Exercise 3
+
+### (a)
+Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-
+data(Smiles, package = 'Lock5Data')
+# Graph the leniency data: 
+# Todo
 ```
 
-
-
+### (b)
+Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-quantile(Boot.FloridaLakes$t, probs = c(.025, .925))
+Smiles %>% group_by(Group) %>% summarise(Mean.value = mean(Leniency), 
+                                         Standard.Deviation.value = sd(Leniency)) %>% kable()
 ```
 
-\textbf{GOT IT}
-
-## 4b
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-## 4c
-
-# Exercise 5
-
-## 5a
-
-```{r}
-
-```
-
-
-```{r}
-
-```
-
-## 5b
-
-
-```{r}
-
-```
-
-
-```{r}
-
-```
-
-## 5c
-
-
-## 5d
+### (c)
+Answer: \textbf{Done (GOT IT)}
 
 Required confidence interval:
 $$
 \left(\bar{x}_{1}-\bar{x}_{2}\right)\pm t_{n_{1}+n_{2}-2}^{1-\alpha/2}\;\left(s_{pool}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}\right)
 $$
+(at 95%, alpha = 0.05)
+
+### (d)
+Answer: \textbf{Done (GOT IT)}
+
+### (e)
+Answer: \textbf{Done (GOT IT)}
+
+## Exercise 4
+
+### (a)
+Answer: \textbf{Done (GOT IT)}
+
+### (b)
+Answer: \textbf{Done (GOT IT)}
+
+### (c)
+Answer: \textbf{Done (GOT IT)}
+
+### (d)
+Answer: \textbf{Done (GOT IT)}
+
+### (e)
+Answer: \textbf{Done (GOT IT)}
+
+### (f)
+Answer: \textbf{Done (GOT IT)}
+
+## Exercise 5
+
+### (a)
+Answer: \textbf{Done (GOT IT)}
+
+### (b)
+Answer: \textbf{Done (GOT IT)}
+
+### (c)
+Answer: \textbf{Done (GOT IT)}
+
+### (d)
+Answer: \textbf{Done (GOT IT)}
+
+### (e)
+Answer: \textbf{Done (GOT IT)}
+
+### (f)
+Answer: \textbf{Done (GOT IT)}

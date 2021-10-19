@@ -67,7 +67,16 @@ $$
 # Exercise 2
         
 ```{r}
-
+n = 30
+mean.y = 350000
+mean.x = 245000
+standardDeviation.y = 61900
+standardDeviation.x = 52100
+V1 = standardDeviation.y^2/n
+V2 = standardDeviation.x^2/n
+std_err = sqrt(V1 + V2)
+test_statistic = (mean.y - mean.x) / std_err
+test_statistic
 ```
 
 \textbf{GOT IT}

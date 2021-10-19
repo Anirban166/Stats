@@ -98,8 +98,7 @@ We reject that female and male candidates generally raise the same amount in the
 
 ```{r}
 data(Smiles, package="Lock5Data")
-
-Smiles %>% summarise(xbar=)
+Smiles %>% group_by(Group) %>% summarise(Mean.value = mean(Leniency), Standard.Deviation.value = sd(Leniency)) %>% kable()
 ```
 
 \textbf{GOT IT}

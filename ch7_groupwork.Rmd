@@ -1,0 +1,131 @@
+---
+title: "STA 570 -- Ch. 7 Homework"
+author: "Brit Riggs, Anirban Chetia"
+date: "`r format(Sys.time(),  '%B %d, %Y')`"
+output: pdf_document
+---
+
+# Help
+
+I understand all of the problems!
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+suppressPackageStartupMessages({
+library(knitr)
+library(dplyr)
+library(boot)
+library(mosaic)
+library(ggplot2)
+})
+```
+# Exercise 1
+
+## 1
+
+```{r}
+# fracking
+# n1=21
+# xbar1=19.2
+# s1=30.3
+
+# no fracking
+# n2=13
+# xbar2=1.1
+# s2=6.3
+
+# alpha=0.05
+
+# delta = mu1 - mu2
+# H0: delta = 0
+# Ha: delta > 0
+
+# V1 = s1^2/n1
+# V2 = s2^2/n2
+
+# std_err = sqrt( V1 + V2 )
+
+# test_statistic = ( xbar1 - xbar2 ) / std_err
+
+# special_df = ( (V1 + V2)^2 ) / ( (V1^2/n1-1) + (V2^2/n2-1) )
+```
+
+\textbf{GOT IT}
+
+# Exercise 2
+        
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+# Exercise 3
+
+```{r}
+
+```
+
+The sample size should be around 107.
+
+\textbf{GOT IT}
+
+# Exercise 4
+
+## 4a
+
+```{r}
+
+```
+
+
+
+
+```{r}
+quantile(Boot.FloridaLakes$t, probs = c(.025, .925))
+```
+
+\textbf{GOT IT}
+
+## 4b
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
+## 4c
+
+# Exercise 5
+
+## 5a
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+## 5b
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+## 5c
+
+
+## 5d

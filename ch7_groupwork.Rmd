@@ -133,9 +133,10 @@ Answer: \textbf{Done (GOT IT)}
 
 ```{r}
 data(Smiles, package = 'Lock5Data')
-# Graph the leniency data: 
-# Todo
+ggplot(Smiles, aes(Leniency, Group)) + geom_line(aes(color = Group)) + ggtitle("Leniency score for the smiling and non-smiling groups")
 ```
+
+From my created ggplot with a line geometry, I observe that the smiling groups have a comparatively higher leniency score as compared to the non-smiling groups.
 
 ### (b)
 Answer: \textbf{Done (GOT IT)}

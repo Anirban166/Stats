@@ -5,27 +5,12 @@ date: "`r format(Sys.time(),  '%B %d, %Y')`"
 output: pdf_document
 ---
 
-Answers to compare against for quick reference: (delete before submitting!)
-
-1b - 2.1139, Satterthwaite's df
-
-1c - 0.0212
-
-2b - 7.108227, basic df
-
-2c - basically 0
-
-3b - 4.12 and 4.91, 1.52 and 1.68
-
-3c - -2, 0.045, -1.57 to -0.02
-
-4d - -0.71 to -0.27 (centered 95% CI) or -inf to -0.31 (left-tailed 95% CI)
-
 ```{r, message = FALSE, warning = FALSE, echo = FALSE}
 suppressPackageStartupMessages({
 library(boot)
 library(knitr)
 library(dplyr)
+library(tidyr)
 library(mosaic)
 library(ggplot2)
 library(latex2exp)
@@ -37,9 +22,17 @@ library(latex2exp)
 ### (a)
 Answer: \textbf{Done (GOT IT)}
 
-$\delta = \bar{x}_{1} - \bar{x}_{2}$  
-$H_{0}: \delta = 0$  
-$H_{a}: \delta > 0$  
+Null hypothesis:
+
+Sites lying in the vicinity of (near) fracking wells have the same methane levels as the sites which do not lie in close proximity to any fracking wells, i.e., symbolically:
+
+$H_{0}: \bar{x}_{1} - \bar{x}_{2} = 0$ or $\bar{x}_{1} = \bar{x}_{2}$  
+
+Alternative hypothesis:
+
+Sites lying near fracking wells have higher methane levels as compared to those which do not lie close to any fracking wells, i.e., symbolically:
+
+$H_{a}: \bar{x}_{1} - \bar{x}_{2} > 0$  
 
 ### (b)
 Answer: \textbf{Done (GOT IT)}
@@ -49,11 +42,11 @@ Answer: \textbf{Done (GOT IT)}
 n1    <- 21
 xbar1 <- 19.2
 s1    <- 30.3
+V1 <- s1^2/n1
 # No fracking:
 n2    <- 13
 xbar2 <- 1.1
 s2    <- 6.3
-V1 <- s1^2/n1
 V2 <- s2^2/n2
 std_err <- sqrt(V1 + V2)
 (test_statistic <- (xbar1 - xbar2) / std_err)
@@ -70,21 +63,31 @@ special_df <- ((V1 + V2)^2) / ((V1^2/n1-1) + (V2^2/n2-1))
 ### (d)
 Answer: \textbf{Done (GOT IT)}
 
-We reject the null because p-value < $\alpha$ = 0.05.  
+I reject the null hypothesis because I got a p-value < $\alpha$ = 0.05.  
 
 ### (e)
 Answer: \textbf{Done (GOT IT)} 
 
-We reject the null hypothesis that the sites near fracking wells have the same methane levels as the sites which are far from fracking wells. On the other hand, this means that we do have evidence supporting the alternative hypothesis, implying that methane levels are higher near fracking wells.
+I reject the null hypothesis that the sites near fracking wells have the same methane levels as the sites which are far from fracking wells. On the other hand, this means that I do have evidence supporting the alternative hypothesis, implying that methane levels are actually higher near fracking wells.
+
+\newpage
 
 ## Exercise 2
 
 ### (a)
 Answer: \textbf{Done (GOT IT)}
 
-$\delta = \bar{y} - \bar{x}$  
-$H_{0}: \delta = 0$  
-$H_{a}: \delta > 0$  
+Null hypothesis:
+
+The female and male candidates generally raise the same amount of money in their campaigns, i.e., symbolically:
+
+$H_{0}: \bar{y} - \bar{x} = 0$ or $\bar{y} = \bar{x}$  
+ 
+Alternative hypothesis:
+
+The female candidates generally raise less money than the male candidates in their campaigns, i.e., symbolically:
+ 
+$H_{a}: \bar{y} - \bar{x}  > 0$  
 
 ### (b)
 Answer: \textbf{Done (GOT IT)}
@@ -98,13 +101,11 @@ sy   <- 61900
 nx <- 30
 xbar <- 245000
 sx   <- 52100
-
-# works as well: (gonna ask why, maybe because n is same?)
+# would work as well: 
 #V1 = sy^2/ny
 #V2 = sx^2/nx
 #std_err = sqrt(V1 + V2)
 #(test_statistic = (ybar - xbar) / std_err)
-
 s_pool_squared <- (1 / (ny + nx - 2)) * (((ny - 1) * sy^2) + ((nx - 1) * sx^2))
 (test_statistic <- (ybar - xbar) / sqrt((s_pool_squared / ny) + (s_pool_squared / nx)))
 ```
@@ -119,12 +120,14 @@ Answer: \textbf{Done (GOT IT)}
 ### (d)
 Answer: \textbf{Done (GOT IT)}
 
-We reject the null because p-value < $\alpha$ = 0.05. 
+I reject the null hypothesis because I got a p-value < $\alpha$ = 0.05. 
 
 ### (e)
 Answer: \textbf{Done (GOT IT)} 
 
-We reject the null hypothesis that the female and male candidates generally raise the same amount of money in their campaigns. On the other hand, this means that we do have evidence supporting the alternative hypothesis, which implies that women generally raise less money than male candidates.
+I reject the null hypothesis that the female and male candidates generally raise the same amount of money in their campaigns. On the other hand, this means that I do have evidence supporting the alternative hypothesis, which implies that women generally raise less money than male candidates.
+
+\newpage
 
 ## Exercise 3
 
@@ -133,10 +136,11 @@ Answer: \textbf{Done (GOT IT)}
 
 ```{r}
 data(Smiles, package = 'Lock5Data')
-ggplot(Smiles, aes(Leniency, Group)) + geom_line(aes(color = Group)) + ggtitle("Leniency score for the smiling and non-smiling groups")
+ggplot(Smiles, aes(Leniency, Group)) + geom_line(aes(color = Group)) + 
+  ggtitle("Leniency score for smiling and non-smiling groups")
 ```
 
-From my created ggplot with a line geometry, I observe that the smiling groups have a comparatively higher leniency score as compared to the non-smiling groups.
+From my created ggplot with a line geometry, I observe that the smiling groups have a comparatively higher leniency score as compared to the non-smiling groups. (albeit, a slight difference)
 
 ### (b)
 Answer: \textbf{Done (GOT IT)}
@@ -146,57 +150,211 @@ Smiles %>% group_by(Group) %>% summarise(Mean.value = mean(Leniency),
                                          Standard.Deviation.value = sd(Leniency)) %>% kable()
 ```
 
+Yeah, it does seem reasonable that the standard deviation of both the groups is same.
+
 ### (c)
 Answer: \textbf{Done (GOT IT)}
 
-Required confidence interval:
-$$
-\left(\bar{x}_{1}-\bar{x}_{2}\right)\pm t_{n_{1}+n_{2}-2}^{1-\alpha/2}\;\left(s_{pool}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}\right)
-$$
-(at 95%, alpha = 0.05)
+```{r}
+result <- t.test(Leniency ~ Group, data = Smiles, var.equal = TRUE, 
+                 conf.level = 0.95,alternative = 'two.sided')
+```
+Required test statistic:
+
+```{r}
+result$statistic
+```
+
+Required p-value:
+
+```{r}
+result$p.value
+```
+
+Required 95% confidence interval:
+
+```{r}
+result$conf.int
+```
 
 ### (d)
 Answer: \textbf{Done (GOT IT)}
 
+Required p-value:
+
+```{r}
+Perm.Smiles <- mosaic::do(10000) * {
+ Smiles %>% mutate(S = mosaic::shuffle(Group)) %>% group_by(S) %>% 
+ summarise(d.bar = mean(Leniency)) %>% summarise(d.i = diff(d.bar))
+}
+Perm.Smiles %>% summarize(p.value = mean(d.i <= -0.8))
+```
+
+Required 95% confidence interval:
+
+```{r}
+Boot.Smiles <- mosaic::do(10000)*{
+ Smiles %>% group_by(Group) %>% mosaic::resample() %>%
+ summarize(d.i = mean(Leniency)) %>% summarize(d.bar = diff(d.i))
+}
+quantile(Boot.Smiles$d.bar, probs = c(0.025, 0.975))
+```
+
 ### (e)
 Answer: \textbf{Done (GOT IT)}
+
+I got a p-value of 0.045 using the asymptotic method, which is less than our considered $\alpha$ (0.05 at the 95% significance level) value, hence I reject the null hypothesis, indicating that a smile affects the leniency of disciplinary action for wrongdoers. However, this p-value is very close to $\alpha = 0.05$, and if I were to be more stringent and go for a lower p-value such as 0.01 (testing at a significance level of 99%), the reverse would be true for this hypothesis test. 
+
+Hence, I do feel that I should have instead gone for a lower $\alpha$ value (tighter test), given that the data does not actually provide a very strong rejection criteria with that p-value (also the difference I saw while making the graph was kinda negligible).
+
+\newpage
 
 ## Exercise 4
 
 ### (a)
 Answer: \textbf{Done (GOT IT)}
 
+A one-sided test is appropriate here since spoilers only matter at the beginning of the story (negatively affecting the enjoyment of the story), and not at the end of the story (with the full picture seen, a glimpse of it afterwards doesn't change/reveal anything).
+
 ### (b)
 Answer: \textbf{Done (GOT IT)}
+
+```{r}
+data(StorySpoilers, package = 'Lock5Data')
+StorySpoilers.Long <- StorySpoilers %>% gather('Type', 'Rating', Spoiler, Original) %>%
+                      mutate(Story = factor(Story), Type  = factor(Type)) %>% arrange(Story)
+ggplot(StorySpoilers.Long, aes(x = Rating)) + geom_histogram(binwidth = 1) + facet_grid(Type ~ .)
+```
+
+The modified spoiler versions have a larger mean than the original/unmodified stories.
 
 ### (c)
 Answer: \textbf{Done (GOT IT)}
 
+```{r}
+d <- StorySpoilers %>% mutate(d = Spoiler - Original)
+ggplot(d, aes(x = d)) +
+geom_histogram(binwidth = .1)
+```
+
+Yes, the distribution of the differences as observed above does suggest that a spoiler lowers the rating.
+
 ### (d)
 Answer: \textbf{Done (GOT IT)}
+
+```{r}
+result <- t.test(Rating ~ Type, data = StorySpoilers.Long, alternative = 'less')
+result
+```
+
+Required 95% confidence interval:
+
+```{r}
+result$conf.int
+```
 
 ### (e)
 Answer: \textbf{Done (GOT IT)}
 
+```{r}
+Perm.StorySpoilers <- mosaic::do(10000)*{ 
+  StorySpoilers.Long %>% mutate(D = mosaic::shuffle(Type)) %>% group_by(D) %>% 
+  summarize(d.bar = mean(Rating)) %>% summarize(d.i = diff(d.bar)) 
+}  
+Perm.StorySpoilers %>% summarize(p.value = mean(d.i >= 0.5))
+```
+
+Required 95% confidence interval:
+
+```{r}
+Boot.StorySpoilers <- mosaic::do(10000)*{ 
+  StorySpoilers.Long %>% group_by(Type) %>% mosaic::resample() %>%
+  summarize(d.i = mean(Rating)) %>% summarize(d.bar = diff(d.i))   
+}
+quantile(Boot.StorySpoilers$d.bar, probs = c(0.025, 0.975))
+```
+
 ### (f)
 Answer: \textbf{Done (GOT IT)}
+
+Based on the results from (d) and (e) above, I can say that a spoiler at the beginning of a story does not negatively affect the enjoyment of the story, given that the p-values I obtained in both of the cases are lower than $\alpha = 0.05$ (at the 95% significance level), indicating that the test considered by the researches has evidence against their hypothetical statement.
+
+\newpage
 
 ## Exercise 5
 
 ### (a)
 Answer: \textbf{Done (GOT IT)}
 
+The researchers randomized the wearing of the wetsuits and regular swimwear to avoid or possibly eliminate the influence of other factors that could have come into play, if we were to go in a particular order.
+
 ### (b)
 Answer: \textbf{Done (GOT IT)}
+
+```{r}
+data(Wetsuits, package = 'Lock5Data')
+Wetsuits.Long <- Wetsuits %>% mutate(Participant = factor(1:12)) %>% 
+  gather('Suit', 'MaxVelocity', Wetsuit, NoWetsuit) %>% arrange(Participant, Suit) %>% 
+  mutate(Suit = factor(Suit))          
+ggplot(Wetsuits.Long, aes(x = MaxVelocity)) + geom_histogram(binwidth = .05) + facet_grid(Suit ~ .)
+```
+
+By comparing the two distributions above, I observe that the mean of the wetsuits is greater than the mean of the non-wetsuits.
 
 ### (c)
 Answer: \textbf{Done (GOT IT)}
 
+```{r}
+mosaic::t.test(MaxVelocity ~ Suit, data = Wetsuits.Long, conf.level = 0.95, alternative = 'two.sided')
+```
+
+From the result of this t-test (with the pairing ignored), I got a p-value > $\alpha$ (0.05) which implies that there is a difference (i.e. a positive one) with the wetsuit which cannot be rejected/discarded in assumption. Thus, I conclude that the swimmers do have a positive effect (better velocity/swim-rate) on swimming when wearing the wetsuit. 
+
 ### (d)
 Answer: \textbf{Done (GOT IT)}
+
+```{r}
+d <- Wetsuits %>% mutate(d = Wetsuit - NoWetsuit)
+ggplot(d, aes(x = d)) + geom_histogram(binwidth = 0.002)
+```
+
+The observed difference in the velocity/speed indicates that wetsuits are preferred for the swimmers.
 
 ### (e)
 Answer: \textbf{Done (GOT IT)}
 
+```{r}
+result <- t.test(MaxVelocity ~ Suit, data = Wetsuits.Long, conf.level = 0.95, alternative = 'two.sided')
+result
+```
+
+Required 95% confidence interval:
+
+```{r}
+result$conf.int
+```
+
+Based on the results obtained above, I can conclude that wearing a wetsuit has a positive effect on the swimming speed/velocity (same case as in (c) above), with the obtained p-value for the test being greater than $\alpha$.
+
 ### (f)
 Answer: \textbf{Done (GOT IT)}
+
+```{r}
+Perm.Wetsuits <- mosaic::do(10000)*{ 
+  Wetsuits.Long %>% mutate(D = mosaic::shuffle(Suit)) %>% group_by(D) %>% 
+  summarize(d.bar = mean(MaxVelocity)) %>% summarize(d.i = diff(d.bar))              
+}
+Perm.Wetsuits %>% summarize(p.value = mean(d.i >= 0.08))
+```
+
+Required 95% confidence interval:
+
+```{r}
+Boot.Wetsuits <- mosaic::do(10000)*{ 
+  Wetsuits.Long %>% group_by(Suit) %>% mosaic::resample() %>%
+  summarize(d.i = mean(MaxVelocity)) %>% summarize(d.bar = diff(d.i))   
+}
+quantile(Boot.Wetsuits$d.bar, probs = c(0.025, 0.975))
+```
+
+Based on the results obtained above, I can conclude that wearing a wetsuit has a positive effect on the swimming speed/velocity, given its the same case as in (c) and (e) above, with the obtained p-value for the test being greater than $\alpha$.

@@ -43,39 +43,42 @@ Part i. and ii. are equal and part iii. and iv. are equal because the F Distribu
 # Exercise 2
 
 ## 2a
-        
+
 ```{r}
-par(mfrow=c(1,2)) # 1 row of 2 graphs, side-by-side
+finalData <- data.frame(nvalue = numeric(), pvalue = numeric(), statistic = numeric())
+par(mfrow = c(1,2)) # 1 row of 2 graphs, side-by-side
 n <- 5                       # sample size is 5
-x <- rnorm(n, mean=25, sd=5) # draw random sample from a normal distribution
+x <- rnorm(n, mean = 25, sd = 5) # draw random sample from a normal distribution
 hist(x)                      # histogram
 qqnorm(x)                    # qqplot for normality
-qqline(x)                    # add a line to the above plot
-shapiro.test(x)              # do the test for normality
-
-par(mfrow=c(1,2)) # 1 row of 2 graphs, side-by-side
+qqline(x)                    # add a line to the above plot              # do the test for normality
+first.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
+finalData <- rbind(finalData, first.case)
+par(mfrow = c(1,2)) # 1 row of 2 graphs, side-by-side
 n <- 25                       # sample size is 5
-x <- rnorm(n, mean=25, sd=5) # draw random sample from a normal distribution
+x <- rnorm(n, mean = 25, sd = 5) # draw random sample from a normal distribution
 hist(x)                      # histogram
 qqnorm(x)                    # qqplot for normality
 qqline(x)                    # add a line to the above plot
-shapiro.test(x)              # do the test for normality
-
-par(mfrow=c(1,2)) # 1 row of 2 graphs, side-by-side
+second.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
+finalData <- rbind(finalData, second.case)
+par(mfrow = c(1,2)) # 1 row of 2 graphs, side-by-side
 n <- 100                       # sample size is 5
-x <- rnorm(n, mean=25, sd=5) # draw random sample from a normal distribution
+x <- rnorm(n, mean = 25, sd = 5) # draw random sample from a normal distribution
 hist(x)                      # histogram
 qqnorm(x)                    # qqplot for normality
 qqline(x)                    # add a line to the above plot
-shapiro.test(x)              # do the test for normality
-
-par(mfrow=c(1,2)) # 1 row of 2 graphs, side-by-side
+third.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
+finalData <- rbind(finalData, third.case)
+par(mfrow = c(1,2)) # 1 row of 2 graphs, side-by-side
 n <- 400                       # sample size is 5
-x <- rnorm(n, mean=25, sd=5) # draw random sample from a normal distribution
+x <- rnorm(n, mean = 25, sd = 5) # draw random sample from a normal distribution
 hist(x)                      # histogram
 qqnorm(x)                    # qqplot for normality
 qqline(x)                    # add a line to the above plot
-shapiro.test(x)              # do the test for normality
+fourth.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
+finalData <- rbind(finalData, fourth.case)
+finalData %>% kable()
 ```
 
 As the sample size increases, the qqplot looks increasingly normal which means the points create a diagonal line.

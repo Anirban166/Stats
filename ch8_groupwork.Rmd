@@ -255,10 +255,19 @@ The large p-values in each case tell me that my assumptions for both Group 1 and
 ### (c)
 Answer: \textbf{Done (GOT IT)}
 
-(i) For the standard deviation:
+(i) Calculating the standard deviations:
 ```{r}
 c(sd(Group1Data$time), sd(Group2Data$time))
-# pf()
+```
+
+Calculating the f-statistic:
+```{r}
+f = (sd(Group1Data$time)/sd(Group2Data$time))^2
+```
+
+Calculating the p-value:
+```{r}
+2*(1-pf(f, 9, 15))
 ```
 
 (ii) 
@@ -266,4 +275,4 @@ c(sd(Group1Data$time), sd(Group2Data$time))
 ```{r}
 var.test(time ~ type, data = lifespan)
 ```
-From the observed test result, I verify that my calculation is right.
+From the observed test result, I verify that my calculations are right. (complying with the values I obtained in (i))

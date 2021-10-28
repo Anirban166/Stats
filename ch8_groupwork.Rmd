@@ -208,22 +208,62 @@ At 5% significance, we reject the null hypothesis because the p-value is smaller
 
 # Exercise 5
 
-## 5a
-
-
-```{r}
-
-```
-
-## 5b
+### (a)
+Answer: \textbf{Done (GOT IT)}
 
 ```{r}
+lifespan <- data.frame(
+  time = c(19.25,19.7,19.75,19.9,19.95,20.05,20.13,20.2,20.4,20.6,
+           9.7,9.75,9.8,9.82,9.85,9.90,9.92,9.96,10.01,10.02,10.10,
+           10.11,10.13,10.19,10.28,10.31),
+  type = c( rep('110',10), rep('220',16)))
 
+Group1Data <- lifespan %>% filter(type == '110')
+Group2Data <- lifespan %>% filter(type == '220')
 ```
 
-
-## 5c
+Mean and variance of each sample group:
 
 ```{r}
-
+c(mean(Group1Data$time), var(Group1Data$time), length(Group1Data$time))
+c(mean(Group2Data$time), var(Group2Data$time), length(Group2Data$time))
 ```
+
+### (b)
+Answer: \textbf{Done (GOT IT)}
+
+(i)
+```{r}
+qqnorm(Group1Data$time)
+qqline(Group1Data$time)
+```      
+I observe that Group 1 is normally distributed.
+```{r}      
+qqnorm(Group2Data$time)
+qqline(Group2Data$time)
+```
+I observe that Group 2 is normally distributed as well.
+
+(ii)
+```{r}
+shapiro.test(Group1Data$time)
+shapiro.test(Group2Data$time)
+```
+
+The large p-values in each case tell me that my assumptions for both Group 1 and Group 2 are right.
+
+### (c)
+Answer: \textbf{Done (GOT IT)}
+
+(i) For the standard deviation:
+```{r}
+c(sd(Group1Data$time), sd(Group2Data$time))
+# pf()
+```
+
+(ii) 
+
+```{r}
+var.test(time ~ type, data = lifespan)
+```
+From the observed test result, I verify that my calculation is right.

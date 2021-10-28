@@ -45,20 +45,20 @@ Answer: \textbf{Done (GOT IT)}
 
 ```{r}
 finalData <- data.frame(nvalue = numeric(), pvalue = numeric(), statistic = numeric())
-n <- 5                           # sample size is 5
-x <- rnorm(n, mean = 25, sd = 5) # draw random sample from a normal distribution
+n <- 5                        
+x <- rnorm(n, mean = 25, sd = 5) 
 first.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
 finalData <- rbind(finalData, first.case)
-n <- 25                          # sample size is 5
-x <- rnorm(n, mean = 25, sd = 5) # draw random sample from a normal distribution
+n <- 25                         
+x <- rnorm(n, mean = 25, sd = 5) 
 second.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
 finalData <- rbind(finalData, second.case)
-n <- 100                         # sample size is 5
-x <- rnorm(n, mean = 25, sd = 5) # draw random sample from a normal distribution
+n <- 100                         
+x <- rnorm(n, mean = 25, sd = 5) 
 third.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
 finalData <- rbind(finalData, third.case)
-n <- 400                         # sample size is 5
-x <- rnorm(n, mean = 25, sd = 5) # draw random sample from a normal distribution
+n <- 400                         
+x <- rnorm(n, mean = 25, sd = 5) 
 fourth.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
 finalData <- rbind(finalData, fourth.case)
 finalData %>% kable()
@@ -69,20 +69,20 @@ Answer: \textbf{Done (GOT IT)}
 
 ```{r}
 finalData <- data.frame(nvalue = numeric(), pvalue = numeric(), statistic = numeric())
-n <- 5                              # sample size is 5
-x <- rgamma(n, shape = 3, rate = 2) # draw random sample from a gamma distribution
+n <- 5
+x <- rgamma(n, shape = 3, rate = 2)
 first.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
 finalData <- rbind(finalData, first.case)
-n <- 25                             # sample size is 5
-x <- rgamma(n, shape = 3, rate = 2) # draw random sample from a gamma distribution
+n <- 25                          
+x <- rgamma(n, shape = 3, rate = 2)
 second.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
 finalData <- rbind(finalData, second.case)
-n <- 100                            # sample size is 5
-x <- rgamma(n, shape = 3, rate = 2) # draw random sample from a gamma distribution
+n <- 100                          
+x <- rgamma(n, shape = 3, rate = 2)
 third.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
 finalData <- rbind(finalData, third.case)
-n <- 400                            # sample size is 5
-x <- rgamma(n, shape = 3, rate = 2) # draw random sample from a gamma distribution
+n <- 400                          
+x <- rgamma(n, shape = 3, rate = 2)
 fourth.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
 finalData <- rbind(finalData, fourth.case)
 finalData %>% kable()
@@ -95,9 +95,9 @@ finalData %>% kable()
 Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-par(mfrow = c(1,1)) # 1 row of 1: Just one graph
+par(mfrow = c(1, 1))
 n <- 5 
-sigma <- c(2,2)   # Standard deviations of each group
+sigma <- c(2, 2)
 my.data <- data.frame(y = c(rnorm(n, mean = 0, sd = sigma[1]),
                             rnorm(n, mean = 0, sd = sigma[2])),
                       group = c(rep('g1', n), rep('g2', n)))
@@ -109,9 +109,9 @@ var.test(y ~ group, data = my.data)
 Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-par(mfrow = c(1,1)) # 1 row of 1: Just one graph
+par(mfrow = c(1, 1)) 
 n <- 5 
-sigma <- c(2,4)   # Standard deviations of each group
+sigma <- c(2, 4)
 my.data <- data.frame(y = c(rnorm(n, mean = 0, sd = sigma[1]),
                             rnorm(n, mean = 0, sd = sigma[2])),
                       group = c(rep('g1', n), rep('g2', n)))
@@ -119,15 +119,15 @@ boxplot(y ~ group, data = my.data)
 var.test(y ~ group, data = my.data)
 ```
 
-The F-test rejects more frequently.
+The f-test rejects more frequently.
 
 ### (c)
 Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-par(mfrow = c(1,1)) # 1 row of 1: Just one graph
+par(mfrow = c(1, 1)) # 1 row of 1: Just one graph
 n <- 50 
-sigma <- c(2,2)   # Standard deviations of each group
+sigma <- c(2, 2)     # Standard deviations of each group
 my.data <- data.frame(y = c(rnorm(n, mean = 0, sd = sigma[1]),
                             rnorm(n, mean = 0, sd = sigma[2])),
                       group = c(rep('g1', n), rep('g2', n)))
@@ -144,18 +144,15 @@ Answer: \textbf{Done (GOT IT)}
 
 ```{r}
 # H0 : var1 = var2
-# Ha : var1 neq var2
+# Ha : var1 not equal to var2
 n1    <- 15
 xbar1 <- 52
 s1    <- 7
 n2    <- 20
 xbar2 <- 42
 s2    <- 4
-# alpha <- 0.05
-# all calc done by hand!
-# perform F test to see if variances are different (0.025)
-f <- s1^2/s2^2  # f <- var1/var2
-2*(1-pf(f, n1-1, n2-1))
+f <- s1^2/s2^2
+2 * (1 - pf(f, n1 - 1, n2 - 1))
 ```
 
 At 5% significance, we reject the null hypothesis because the p-value is smaller than alpha.
@@ -167,11 +164,10 @@ Answer: \textbf{Done (GOT IT)}
 
 ```{r}
 lifespan <- data.frame(
-  time = c(19.25,19.7,19.75,19.9,19.95,20.05,20.13,20.2,20.4,20.6,
-           9.7,9.75,9.8,9.82,9.85,9.90,9.92,9.96,10.01,10.02,10.10,
-           10.11,10.13,10.19,10.28,10.31),
-  type = c( rep('110',10), rep('220',16)))
-
+  time = c(19.25, 19.7, 19.75, 19.9, 19.95, 20.05, 20.13, 20.2, 20.4, 20.6,
+           9.7, 9.75, 9.8, 9.82, 9.85, 9.90, 9.92, 9.96, 10.01, 10.02, 10.10,
+           10.11, 10.13, 10.19, 10.28, 10.31),
+  type = c( rep('110', 10), rep('220', 16)))
 Group1Data <- lifespan %>% filter(type == '110')
 Group2Data <- lifespan %>% filter(type == '220')
 ```
@@ -216,12 +212,12 @@ c(sd(Group1Data$time), sd(Group2Data$time))
 
 Calculating the f-statistic:
 ```{r}
-f = (sd(Group1Data$time)/sd(Group2Data$time))^2
+f = (sd(Group1Data$time) / sd(Group2Data$time))^2
 ```
 
 Calculating the p-value:
 ```{r}
-2*(1-pf(f, 9, 15))
+2 * (1 - pf(f, 9, 15))
 ```
 
 (ii) 

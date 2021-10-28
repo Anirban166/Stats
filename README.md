@@ -62,6 +62,20 @@
   - Type I is more of an error than type II error (or going by the example, falsely accussed guilty is more of an error than guilty being treated as non guilty)
   - As alpha increases, beta decreases, (1-beta) or power increases
 
+- Chapter 9
+  - Anova assumptions:(1 and 2 via simple random sample, 3 -> make histogram/qqplot, or shapiro wilks test for yj-yi (residuals) for each group
+  - 1) The observations are independent
+  - 2) Representative sample 
+  - 3) Residuals are normal (obs. - mean(group obs.))
+  - 4) Variance is the same for all the groups
+  - => Make boxplots for all groups / lots of Ftests / Levene's test (test for variance equality for different groups) -> not very satisfying
+  - SST = SSTotal = SSE<sub>simple</sub> = (n-1)sum sum(yij - ybar)^2 = SSBetween + SSWithin = SSColumns + SSRows = SST<sub>x</sub> (can account for) + SSE (inidividual variability of the sums of squares, can't account for) = SSModel + SSError
+  - F statistic = SSB/(k-1)/SSW/(n-k) = how wrong the variances are between the groups/how wrong the variances are within the groups, left/right with degrees of freedom (g-1)/(n-g)
+  - CI: ybar(in) plusminus t<sup>(1-n/2)</sup><sub>(n-k)</sub> sqrt((SSW/(n-k))/(n<sub>i</sub>))
+
+Context: Ho (null) u1 = u2 = ... = ug is H1 : u1.u2....ug not equal to u1^g
+at least 1 diff, min ui < max ui
+
 - Copy Pasted Class Notes Brit
 
 Ch2 first 3 sections important stuff to know

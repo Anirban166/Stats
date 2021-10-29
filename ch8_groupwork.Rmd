@@ -134,7 +134,7 @@ for (size in sample_sizes){
   n <- size
   reject <- 0
   for (i in 1:1000) {
-    sigma <- c(2,2)
+    sigma <- c(2,4)
     my.data <- data.frame(y = c(rnorm(n, mean = 0, sd = sigma[1]),
                                 rnorm(n, mean = 0, sd = sigma[2])),
                           group = c(rep(’g1’, n), rep(’g2’, n)))

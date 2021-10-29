@@ -99,15 +99,30 @@ non-normality at sizes 100 and 400 which is why the p-value is smaller at these 
 Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-par(mfrow = c(1, 1))
-n <- 5 
-sigma <- c(2, 2)
-my.data <- data.frame(y = c(rnorm(n, mean = 0, sd = sigma[1]),
-                            rnorm(n, mean = 0, sd = sigma[2])),
-                      group = c(rep('g1', n), rep('g2', n)))
-boxplot(y ~ group, data = my.data) 
-var.test(y ~ group, data = my.data)
+final_data <- data.frame(n = numeric(), num_rejects_out_of_20 = numeric())
+sample_sizes <- c(5,25,50,100,500)
+for (size in sample_sizes){
+  n <- size
+  reject <- 0
+  for (i in 1:20) {
+    sigma <- c(2,2)
+    my.data <- data.frame(y = c(rnorm(n, mean = 0, sd = sigma[1]),
+                                rnorm(n, mean = 0, sd = sigma[2])),
+                          group = c(rep(’g1’, n), rep(’g2’, n)))
+    pvalue <- var.test(y ~ group, data = my.data)$p.value
+    if (pvalue < 0.05) {
+      reject <- reject+1
+  }
+}
+temp_data <- data.frame(n=n, num_rejects_out_of_20=reject)
+final_data <- rbind(final_data, temp_data)
+}
+final_data
 ```
+
+The F test rejects that the variances equal rarely when the two variances are equal (see table which counts
+the number of null rejects out of 20 trials for each sample size n). The sample size does not appear to affect
+the rejection rate.
 
 ### (b)
 Answer: \textbf{Done (GOT IT)}

@@ -128,14 +128,25 @@ the rejection rate.
 Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-par(mfrow = c(1, 1)) 
-n <- 5 
-sigma <- c(2, 4)
-my.data <- data.frame(y = c(rnorm(n, mean = 0, sd = sigma[1]),
-                            rnorm(n, mean = 0, sd = sigma[2])),
-                      group = c(rep('g1', n), rep('g2', n)))
-boxplot(y ~ group, data = my.data) 
-var.test(y ~ group, data = my.data)
+final_data <- data.frame(n = numeric(), num_rejects_out_of_1000 = numeric())
+sample_sizes <- c(5,25,50,100,500)
+for (size in sample_sizes){
+  n <- size
+  reject <- 0
+  for (i in 1:1000) {
+    sigma <- c(2,2)
+    my.data <- data.frame(y = c(rnorm(n, mean = 0, sd = sigma[1]),
+                                rnorm(n, mean = 0, sd = sigma[2])),
+                          group = c(rep(’g1’, n), rep(’g2’, n)))
+    pvalue <- var.test(y ~ group, data = my.data)$p.value
+    if (pvalue < 0.05) {
+      reject <- reject+1
+  }
+}
+temp_data <- data.frame(n=n, num_rejects_out_of_1000=reject)
+final_data <- rbind(final_data, temp_data)
+}
+final_data
 ```
 
 The f-test rejects more frequently.

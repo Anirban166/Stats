@@ -44,24 +44,26 @@ Part (i) and (ii) are equal and part (iii) and (iv) are equal because the F Dist
 Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-finalData <- data.frame(nvalue = numeric(), pvalue = numeric(), statistic = numeric())
-n <- 5                        
-x <- rnorm(n, mean = 25, sd = 5) 
-first.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
-finalData <- rbind(finalData, first.case)
-n <- 25                         
-x <- rnorm(n, mean = 25, sd = 5) 
-second.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
-finalData <- rbind(finalData, second.case)
-n <- 100                         
-x <- rnorm(n, mean = 25, sd = 5) 
-third.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
-finalData <- rbind(finalData, third.case)
-n <- 400                         
-x <- rnorm(n, mean = 25, sd = 5) 
-fourth.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
-finalData <- rbind(finalData, fourth.case)
-finalData %>% kable()
+sample_sizes <- c(5, 25, 100, 400)
+final_data <- data.frame(trial = numeric(), nvalue = numeric(), 
+                         pvalue = numeric(), statistic = numeric())
+for (size in sample_sizes) {
+  for (i in 1:10) {
+    n <- size
+    x <- rnorm(n, mean = 25, sd = 5)
+    temp_case <- data.frame(trial = i, nvalue = n, 
+                            pvalue = shapiro.test(x)$p.value, 
+                            statistic = shapiro.test(x)$statistic)
+    final_data <- rbind(final_data, temp_case)
+  }
+}
+n_5   <- data.frame(final_data[1:10,],  row.names = c(1:10))
+n_25  <- data.frame(final_data[11:20,], row.names = c(1:10))
+n_100 <- data.frame(final_data[21:30,], row.names = c(1:10))
+n_400 <- data.frame(final_data[31:40,], row.names = c(1:10))
+kables(
+  list(kable(n_5),kable(n_25),kable(n_100),kable(n_400))
+)
 ```
 The results are that even with a small sample size, the shapiro test is pretty consistent at detecting normality.
 The test is more consistent with a larger sample size.
@@ -70,24 +72,26 @@ The test is more consistent with a larger sample size.
 Answer: \textbf{Done (GOT IT)}
 
 ```{r}
-finalData <- data.frame(nvalue = numeric(), pvalue = numeric(), statistic = numeric())
-n <- 5
-x <- rgamma(n, shape = 3, rate = 2)
-first.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
-finalData <- rbind(finalData, first.case)
-n <- 25                          
-x <- rgamma(n, shape = 3, rate = 2)
-second.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
-finalData <- rbind(finalData, second.case)
-n <- 100                          
-x <- rgamma(n, shape = 3, rate = 2)
-third.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
-finalData <- rbind(finalData, third.case)
-n <- 400                          
-x <- rgamma(n, shape = 3, rate = 2)
-fourth.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statistic = shapiro.test(x)$statistic)
-finalData <- rbind(finalData, fourth.case)
-finalData %>% kable()
+sample_sizes <- c(5, 25, 100, 400)
+final_data <- data.frame(trial = numeric(), nvalue = numeric(), 
+                         pvalue = numeric(), statistic = numeric())
+for (size in sample_sizes) {
+  for (i in 1:10) {
+    n <- size
+    x <- rgamma(n, shape = 3, rate = 2)
+    temp_case <- data.frame(trial = i, nvalue = n, 
+                            pvalue = shapiro.test(x)$p.value, 
+                            statistic = shapiro.test(x)$statistic)
+    final_data <- rbind(final_data, temp_case)
+  }
+}
+n_5   <- data.frame(final_data[1:10,],  row.names = c(1:10))
+n_25  <- data.frame(final_data[11:20,], row.names = c(1:10))
+n_100 <- data.frame(final_data[21:30,], row.names = c(1:10))
+n_400 <- data.frame(final_data[31:40,], row.names = c(1:10))
+kables(
+  list(kable(n_5),kable(n_25),kable(n_100),kable(n_400))
+)
 ```
 The results are that the shapiro test is bad at detecting the non-normality of the gamma function at smaller
 sample sizes which is why the p-value is higher for sample sizes 5 and 25. The test is great at detecting

@@ -63,6 +63,8 @@ fourth.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statisti
 finalData <- rbind(finalData, fourth.case)
 finalData %>% kable()
 ```
+The results are that even with a small sample size, the shapiro test is pretty consistent at detecting normality.
+The test is more consistent with a larger sample size.
 
 ### (b)
 Answer: \textbf{Done (GOT IT)}
@@ -87,7 +89,9 @@ fourth.case <- data.frame(nvalue = n, pvalue = shapiro.test(x)$p.value, statisti
 finalData <- rbind(finalData, fourth.case)
 finalData %>% kable()
 ```
-
+The results are that the shapiro test is bad at detecting the non-normality of the gamma function at smaller
+sample sizes which is why the p-value is higher for sample sizes 5 and 25. The test is great at detecting
+non-normality at sizes 100 and 400 which is why the p-value is smaller at these sample sizes.
 
 ## Exercise 3
 

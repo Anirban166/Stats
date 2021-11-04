@@ -120,74 +120,38 @@ suppressPackageStartupMessages({
 
 # Exercise 6
 
-## 6a
+## 6(a)
 
 ```{r}
-
+ggplot(iris, aes(x = Species, y = Sepal.Width)) + geom_boxplot()
 ```
 
-\textbf{GOT IT}
-
-## 6b
+Nope, no assumptions necessary for ANOVA appear to be violated here.
+ 
+## 6(b)
 
 ```{r}
-
 ```
 
-\textbf{GOT IT}
-
-## 6c
+## 6(c)
 
 ```{r}
-
 ```
 
-\textbf{GOT IT}
 
-## 6d
+## 6(d)
 
 ```{r}
-
+Prob6Model <- lm(Sepal.Width ~ Species, data = iris)
+anova(Prob6Model)
 ```
 
-\textbf{GOT IT}
+We can see the p-value is 2.2e-16.
 
-## 6e
+## 6(e)
 
 ```{r}
-
+emmeans::emmeans(Prob6Model, pairwise ~ Species)
 ```
 
-\textbf{GOT IT}
-
-## 6f
-
-```{r}
-
-```
-
-\textbf{GOT IT}
-
-## 6g
-
-```{r}
-
-```
-
-\textbf{GOT IT}
-
-## 6h
-
-```{r}
-
-```
-
-\textbf{GOT IT}
-
-## 6i
-
-```{r}
-
-```
-
-\textbf{GOT IT}
+We can see the three p-values in the picture above.

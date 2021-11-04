@@ -1,0 +1,193 @@
+---
+title: "STA 570 -- Ch. 9 Homework"
+author: "Anirban Chetia, Brit Riggs"
+date: "`r format(Sys.time(),  '%B %d, %Y')`"
+output: pdf_document
+---
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+suppressPackageStartupMessages({
+  library(boot)
+  library(knitr)
+  library(dplyr)
+  library(tidyr)
+  library(mosaic)
+  library(ggplot2)
+  library(latex2exp)
+  library(tidyverse)
+})
+```
+
+# Help
+
+# Exercise 1
+
+## 1a
+
+![](./1a.jpg)
+
+\textbf{GOT IT}
+
+\newpage
+
+## 1b
+
+![](./1b.jpg)
+
+\textbf{GOT IT}
+
+\newpage
+
+# Exercise 2
+
+## 2a
+
+![](./2a.jpg)
+
+\textbf{GOT IT}
+
+\newpage
+
+## 2b
+
+![](./2b.jpg)
+
+\textbf{GOT IT}
+
+\newpage
+
+# Exercise 3
+
+## 3a
+
+![](./3a.jpg)
+
+\textbf{GOT IT}
+
+## 3b
+
+![](./3b.jpg)
+
+\textbf{GOT IT}
+
+## 3c
+
+![](./3c.jpg)
+
+\textbf{GOT IT}
+
+# Exercise 4
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+# Exercise 5
+
+## 5a
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 5b
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 5c
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 5d
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+# Exercise 6
+
+## 6a
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 6b
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 6c
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 6d
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 6e
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 6f
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 6g
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 6h
+
+```{r}
+
+```
+
+\textbf{GOT IT}
+
+## 6i
+
+```{r}
+
+```
+
+\textbf{GOT IT}

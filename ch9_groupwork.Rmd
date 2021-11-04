@@ -78,9 +78,7 @@ suppressPackageStartupMessages({
 
 # Exercise 4
 
-```{r}
-
-```
+We alter the p-value to a more stringent value, thus making it less likely to commit a Type I Error, or in other words, a lower p-value will be better. Thus, we choose the fourth test.
 
 \textbf{GOT IT}
 

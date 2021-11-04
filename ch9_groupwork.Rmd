@@ -76,6 +76,17 @@ suppressPackageStartupMessages({
 
 \textbf{GOT IT}
 
+## 3d
+
+```{r}
+Prob3Data <- data.frame(Measurements = c(4, 6, 6, 8, 8, 8, 6, 6, 12, 13, 15, 16),
+                        Groups = factor(rep(1:3, each = 4)))
+ggplot(Prob3Data, aes(x = Groups, y = Measurements)) + geom_boxplot()
+Prob3Model <- lm(Measurements ~ Groups, data = Prob3Data)
+anova(Prob3Model)
+emmeans::emmeans(Prob3Model, pairwise ~ Groups)
+```
+
 # Exercise 4
 
 We alter the p-value to a more stringent value, thus making it less likely to commit a Type I Error, or in other words, a lower p-value will be better. Thus, we choose the fourth test.

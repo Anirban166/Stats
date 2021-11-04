@@ -28,6 +28,8 @@ suppressPackageStartupMessages({
 
 \textbf{GOT IT}
 
+In this case, the average residual is not significantly larger in the simple model, as compared to the complex one.
+
 \newpage
 
 ## 1b
@@ -45,6 +47,8 @@ suppressPackageStartupMessages({
 ![](./2a.jpg)
 
 \textbf{GOT IT}
+
+In this case, the average residual is significantly larger in the simple model, as compared to the complex one.
 
 \newpage
 

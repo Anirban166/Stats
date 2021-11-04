@@ -93,60 +93,94 @@ We alter the p-value to a more stringent value, thus making it less likely to co
 
 \textbf{GOT IT}
 
+
 # Exercise 5
 
 ## 5a
 
 ```{r}
-
+Levi <- read.csv('https://raw.github.com/dereksonderegger/570/master/data-raw/Levi.csv')
+str(Levi)
+Levi$Plant = as.factor(Levi$Plant)
+str(Levi)
 ```
+
+Plant was not a factor, so we had to convert it.
 
 \textbf{GOT IT}
 
 ## 5b
 
 ```{r}
-
+model <- lm(Waste ~ Plant, data=Levi)
+ggplot(Levi, aes(x=Plant, y=Waste)) + geom_boxplot()
+autoplot(model, which=c(1,2))
 ```
+
+The violations of assumptions appear to be that the variances aren't equal and the residuals aren't normal. The variances do not appear to be equal because Plant 5's boxplot is taller and Plants 1 and 2 have more outliers. The residuals do not appear to be normal either because the QQ plot looks more like an S shape than a straight line.
 
 \textbf{GOT IT}
 
 ## 5c
 
 ```{r}
-
+car::leveneTest(Waste ~ Plant, data=Levi)
 ```
+
+Based on Levene's test, the variances are equal because we do not reject the null in the test (equal variance).
 
 \textbf{GOT IT}
 
 ## 5d
 
 ```{r}
-
+anova(model)
+shapiro.test(resid(model))
 ```
+
+The Shpiro-Wilk's test shows that the residuals are not normal because the p-value is much smaller than standard significance 0.05.
+
+The ANOVA p-value is larger than 0.05, so we fail to reject that the mean of plant groups are equal.
 
 \textbf{GOT IT}
 
 # Exercise 6
 
-## 6(a)
+## 6a
 
 ```{r}
-ggplot(iris, aes(x = Species, y = Sepal.Width)) + geom_boxplot()
+data('iris')
+model <- lm(Sepal.Width ~ Species, data=iris)
+ggplot(iris_df, aes(x=Species, y=Sepal.Width)) + geom_boxplot()
+autoplot(model, which=c(1,2))
 ```
 
-Nope, no assumptions necessary for ANOVA appear to be violated here.
- 
-## 6(b)
+The boxplots seem to indicate equal variance because the box heights are similar. The residuals appear to be normal since they fall on the straight line in the QQ plot. Therefore, there doesn't appear to be any violation.
+
+\textbf{GOT IT}
+
+## 6b
 
 ```{r}
+car::leveneTest(Sepal.Width ~ Species, data=iris_df)
 ```
+The variances are equal because the result of Levene's test is that p-value > 0.05 (standard alpha), so we fail to reject that the variances are equal.
 
-## 6(c)
+\textbf{GOT IT}
+
+## 6c
 
 ```{r}
+autoplot(model, which=c(1,2))
+anova(model)
+shapiro.test(resid(model))
 ```
 
+The result of ANOVA is the p-value is much smaller than standard alpha 0.05, so we reject the null that the mean sepal widths across the three species is equal.
+
+The result of the QQ plot and Shapiro-Wilk's test is that the residuals are normal.
+
+\textbf{GOT IT}
 
 ## 6(d)
 
@@ -164,3 +198,45 @@ emmeans::emmeans(Prob6Model, pairwise ~ Species)
 ```
 
 We can see the three p-values in the picture above.
+
+The p-value for testing $H_{0}: \mu_{setosa} = \mu_{virginica}$ and $H_{a}: \mu_{setosa} \neq \mu_{virginica}$ is very small $< 0.001$. This indicates a significant difference source. The p-value is much smaller than 0.05, so we reject that $\mu_{setosa} = \mu_{virginica}$.
+
+\textbf{GOT IT}
+
+## 6f
+
+The estimated mean for $\mu_{setosa}$ is 3.43cm, and the estimated mean for $\mu_{virginica}$ is 2.97cm.
+
+\textbf{GOT IT}
+
+## 6g
+
+The estimated value of $\sigma^{2}$ is 0.048.
+
+\textbf{GOT IT}
+
+## 6h
+
+```{r}
+n     <- 50
+xbar  <- 3.43
+sigma_estimate <- sqrt(0.048)
+zstar <- qnorm(0.975)
+(ci_lower <- xbar - zstar*(sigma_estimate/(sqrt(n))))
+(ci_upper <- xbar + zstar*(sigma_estimate/(sqrt(n))))
+```
+
+The calculated confidence interval for $\mu_{setosa}$ is 3.37 to 3.49.
+
+\textbf{GOT IT}
+
+## 6i
+
+```{r}
+t1$emmeans
+```
+
+The confidence interval for $\mu_{setosa}$ is 3.33 to 3.52 which is close to the calculation in $6(h)$.
+
+\textbf{GOT IT}
+

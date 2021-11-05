@@ -142,11 +142,13 @@ anova(model)
 shapiro.test(resid(model))
 ```
 
-The Shpiro-Wilk's test shows that the residuals are not normal because the p-value is much smaller than standard significance 0.05.
+The Shapiro-Wilk's test shows that the residuals are not normal because the p-value is much smaller than standard significance 0.05.
 
 The ANOVA p-value is larger than 0.05, so we fail to reject that the mean of plant groups are equal.
 
 \textbf{GOT IT}
+
+\newpage
 
 # Exercise 6
 
@@ -155,7 +157,7 @@ The ANOVA p-value is larger than 0.05, so we fail to reject that the mean of pla
 ```{r}
 data('iris')
 model <- lm(Sepal.Width ~ Species, data=iris)
-ggplot(iris_df, aes(x=Species, y=Sepal.Width)) + geom_boxplot()
+ggplot(iris, aes(x=Species, y=Sepal.Width)) + geom_boxplot()
 autoplot(model, which=c(1,2))
 ```
 
@@ -166,7 +168,7 @@ The boxplots seem to indicate equal variance because the box heights are similar
 ## 6b
 
 ```{r}
-car::leveneTest(Sepal.Width ~ Species, data=iris_df)
+car::leveneTest(Sepal.Width ~ Species, data=iris)
 ```
 The variances are equal because the result of Levene's test is that p-value > 0.05 (standard alpha), so we fail to reject that the variances are equal.
 

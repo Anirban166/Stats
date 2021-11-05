@@ -239,7 +239,8 @@ The calculated confidence interval for $\mu_{setosa}$ is 3.37 to 3.49.
 ## 6i
 
 ```{r}
-t1$emmeans
+result <- emmeans::emmeans(Problem6.Model, pairwise ~ Species)
+result$emmeans[1]
 ```
 
 The confidence interval for $\mu_{setosa}$ is 3.33 to 3.52 which is close to the calculation in $6(h)$.

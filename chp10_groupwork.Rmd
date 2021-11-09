@@ -12,6 +12,7 @@ I think I got everything correct, i.e. its a '\textbf{GOT IT}' from my side for 
 ```{r, message = FALSE, warning = FALSE, echo = FALSE}
 suppressPackageStartupMessages({
  library(dplyr)
+ library(knitr)  
  library(ggplot2)
  library(ggfortify)
  library(latex2exp)
@@ -29,23 +30,21 @@ ggplot(p1.data, aes(x = x, y = y)) + geom_point()
 
 ## 1(b)
 
-(i)
+### (i)
 ```{r}
 xbar <- mean(p1.data$x)
 ybar <- mean(p1.data$y)
-cbind(xbar, ybar)
 sx <- sd(p1.data$x)
 sy <- sd(p1.data$y)
-cbind(sx, sy)
 x <- p1.data$x
 y <- p1.data$y
 n <- length(x)
 Sxx <- sum((x - mean(x))^2)
 r <- sum((x - mean(x))/sd(x)*(y-mean(y))/sd(y))/(n-1)
-cbind(Sxx, r)
+cbind(xbar, ybar, sx = round(sx, 2), sy = round(sy, 2), Sxx, r = round(r, 4))
 ```
 
-### (i)
+As can be observed from above, the values I obtained by the use of R are the exact same as the ones from the summary statistics. (hence, confirmed)
 
 ### (ii)
 
@@ -93,7 +92,7 @@ confint(model)
 anova(model)
 ```
 
-We can see the P-value here, reject $H_o$ in favor of $H_a$.
+Based on the p-value obtained, we reject $H_o$, and are in favor of $H_a$.
 
 ## 1(f)
 
@@ -106,6 +105,10 @@ $$
 The typical distance to the regression line is $\hat{\sigma}$, which is 4.55.
 
 ## 1(h)
+
+```{r}
+ggplot(p1.data, aes(x = x, y = y)) + geom_point() + geom_smooth(method = 'lm')
+```
 
 # Exercise 2
 

@@ -1,0 +1,136 @@
+---
+title: "Chapter 10 Homework by Anirban Chetia"
+author: "Brit Riggs, Anirban Chetia"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+---
+  
+## Reflective Notes  
+  
+I think I got everything correct, i.e. its a '\textbf{GOT IT}' from my side for all the questions.  
+  
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+suppressPackageStartupMessages({
+ library(dplyr)
+ library(ggplot2)
+ library(ggfortify)
+ library(latex2exp)
+})
+```
+
+# Exercise 1
+
+## 1(a)
+
+```{r}
+p1.data <- data.frame(x = c(3, 8, 10, 18, 23, 28), y = c(14, 28, 43, 62, 79, 86))
+ggplot(p1.data, aes(x = x, y = y)) + geom_point()
+```
+
+## 1(b)
+
+(i)
+```{r}
+xbar <- mean(p1.data$x)
+ybar <- mean(p1.data$y)
+cbind(xbar, ybar)
+sx <- sd(p1.data$x)
+sy <- sd(p1.data$y)
+cbind(sx, sy)
+x <- p1.data$x
+y <- p1.data$y
+n <- length(x)
+Sxx <- sum((x - mean(x))^2)
+r <- sum((x - mean(x))/sd(x)*(y-mean(y))/sd(y))/(n-1)
+cbind(Sxx, r)
+```
+
+### (i)
+
+### (ii)
+
+### (iii)
+
+### (iv)
+
+### (v)
+
+### (vi)
+
+## 1(c)
+
+```{r}
+model <- lm(y ~ x, p1.data)
+```
+
+### (i)
+
+```{r}
+predict(model)
+```
+
+### (ii)
+
+```{r}
+resid(model)
+```
+
+### (iii)
+
+```{r}
+summary(model)
+```
+
+## 1(d)
+
+```{r}
+confint(model)
+```
+
+## 1(e)
+
+```{r}
+anova(model)
+```
+
+We can see the P-value here, reject $H_o$ in favor of $H_a$.
+
+## 1(f)
+
+$$
+R^2 = \frac{SS_{diff}}{SST} = \frac{4003.2}{4003.2 + 829} = 0.9797
+$$
+
+## 1(g)
+
+The typical distance to the regression line is $\hat{\sigma}$, which is 4.55.
+
+## 1(h)
+
+# Exercise 2
+
+## 2(a)
+
+# Exercise 3
+
+## 3(a)
+
+### (i)
+
+### (ii)
+
+### (iii)
+
+## 3(b)
+
+### (i)
+
+### (ii)
+
+### (iii)
+
+### (iv)
+
+### (v)
+
+### (vi)

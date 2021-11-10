@@ -118,9 +118,16 @@ ggplot(p1.data, aes(x = x, y = y)) + geom_point() + geom_smooth(method = 'lm')
 
 ## 3(a)
 
-### (i)
-
+```{r}
+p3.data <- data.frame(Dose = c(2, 2, 2, 4, 4, 8, 8, 16, 16, 16, 32, 32, 64, 64, 64), 
+                      Response = c(5, 7, 3, 10, 14, 15, 17, 20, 21, 19, 23, 29, 28, 31, 30))
+ggplot(p1.data, aes(x = x, y = y)) + geom_point()
+```
 ### (ii)
+
+```{r}
+lm(y ~ x, p3.data)
+```
 
 ### (iii)
 

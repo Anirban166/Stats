@@ -126,6 +126,8 @@ summary(model)
 confint(model)
 ```
 
+The 95% CI for $\hat{\beta}_{1}$ is 2.36 to 3.54.
+
 ## 1(e)
 
 $$ H_0 : \beta_1 = 0 $$

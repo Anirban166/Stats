@@ -31,6 +31,7 @@ ggplot(p1.data, aes(x = x, y = y)) + geom_point()
 ## 1(b)
 
 ### (i)
+
 ```{r}
 xbar <- mean(p1.data$x)
 ybar <- mean(p1.data$y)
@@ -48,13 +49,51 @@ As can be observed from above, the values I obtained by the use of R are the exa
 
 ### (ii)
 
+![](./1(b)(2).jpg)
+
+```{r}
+beta1 <- r * sy / sx
+beta0 <- ybar - beta1 * xbar
+cbind(beta1, beta0)
+```
+
 ### (iii)
+
+![](./1(b)(3).jpg)
+
+```{r}
+(yhat <- beta0 + beta1 * p1.data$x)
+```
 
 ### (iv)
 
+![](./1(b)(4).jpg)
+
+```{r}
+(epsilonhat <- p1.data$y - yhat)
+```
+
 ### (v)
 
+![](./1(b)(5).jpg)
+
+```{r}
+SSE <- sum(epsilonhat^2)
+n <- length(p1.data$x)
+MSE <- SSE/(n - 2)
+sigmahat <- sqrt(MSE)
+cbind(SSE, MSE, sigmahat)
+```
+
 ### (vi)
+
+![](./1(b)(6).jpg)
+
+```{r}
+SEbeta0hat <- sigmahat * sqrt(1 / n + xbar^2 / Sxx)
+SEbeta1hat <- sigmahat * sqrt(1 / Sxx)
+cbind(SEbeta0hat, SEbeta1hat)
+```
 
 ## 1(c)
 
@@ -72,6 +111,7 @@ predict(model)
 
 ```{r}
 resid(model)
+# or model$residuals
 ```
 
 ### (iii)
@@ -88,21 +128,31 @@ confint(model)
 
 ## 1(e)
 
+$$ H_0 : \beta_1 = 0 $$
+$$ H_a : \beta_1 \ne 0 $$
+
 ```{r}
-anova(model)
+(result <- summary(model))
 ```
 
-Based on the p-value obtained, we reject $H_o$, and are in favor of $H_a$.
+Based on the p-value obtained (0.000155) for the x term, we reject the null hypothesis $H_o$ that $\beta_1$ = 0, and are in favor of $H_a$ ($\beta_1 \ne 0$), concluding that there is a non-constant linear relationship between x and y.
 
 ## 1(f)
 
+Thus, the R-squared value for this regression is:
 $$
-R^2 = \frac{SS_{diff}}{SST} = \frac{4003.2}{4003.2 + 829} = 0.9797
+R^2 = \frac{SS_{diff}}{SST} = \frac{4003.2}{4003.2 + 82.9} = 0.9797117
 $$
+```{r}
+result$r.squared
+```
 
 ## 1(g)
 
-The typical distance to the regression line is $\hat{\sigma}$, which is 4.55.
+The typical distance to the regression line (for a considered data point) is $\hat{\sigma}$, which is 4.55, as I obtained from my calculations.
+```{r}
+result$sigma
+```
 
 ## 1(h)
 
@@ -114,15 +164,22 @@ ggplot(p1.data, aes(x = x, y = y)) + geom_point() + geom_smooth(method = 'lm')
 
 ## 2(a)
 
+![](./2(a).jpg)
+
+\newpage
+
 # Exercise 3
 
 ## 3(a)
+
+### (i)
 
 ```{r}
 p3.data <- data.frame(Dose = c(2, 2, 2, 4, 4, 8, 8, 16, 16, 16, 32, 32, 64, 64, 64), 
                       Response = c(5, 7, 3, 10, 14, 15, 17, 20, 21, 19, 23, 29, 28, 31, 30))
 ggplot(p1.data, aes(x = x, y = y)) + geom_point()
 ```
+
 ### (ii)
 
 ```{r}
@@ -136,6 +193,10 @@ lm(y ~ x, p3.data)
 ### (i)
 
 ### (ii)
+
+```{r}
+
+```
 
 ### (iii)
 

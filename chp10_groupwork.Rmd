@@ -179,31 +179,76 @@ ggplot(p1.data, aes(x = x, y = y)) + geom_point() + geom_smooth(method = 'lm')
 ```{r}
 p3.data <- data.frame(Dose = c(2, 2, 2, 4, 4, 8, 8, 16, 16, 16, 32, 32, 64, 64, 64), 
                       Response = c(5, 7, 3, 10, 14, 15, 17, 20, 21, 19, 23, 29, 28, 31, 30))
-ggplot(p1.data, aes(x = x, y = y)) + geom_point()
+ggplot(p3.data, aes(x = Dose, y = Response)) + geom_point()
 ```
+
+The relationship in between the dose and response looks like a logarithmic or square-root trend.
 
 ### (ii)
 
 ```{r}
-lm(y ~ x, p3.data)
+(linear.model <- lm(Response ~ Dose, data = p3.data))
 ```
 
 ### (iii)
+
+```{r}
+problem.check <- data.frame(residuals = resid(linear.model), prediction = predict(linear.model))
+ggplot(problem.check, aes(x = prediction, y = residuals)) + geom_point()
+```
+
+Examining the plot of residuals vs fitted values, I can observe that the residual variance near predicted values of 0 appears larger than the variance elsewhere and the residuals are positive for values at the middle (of prediction) but negative on the extremes, so linear regression is doubly inappropriate.
+
+\newpage
 
 ## 3(b)
 
 ### (i)
 
+```{r}
+p3.data <- p3.data %>% mutate(logdose = log(Dose))
+ggplot(p3.data, aes(x = logdose, y = Response)) + geom_point()
+```
+
+Yes, it indeed does appear that linear regression would be appropriate here.
+
 ### (ii)
 
 ```{r}
-
+log.linear.model <- lm(Response ~ logdose, data = p3.data)
+logerrorcheck <- data.frame(log.residuals = resid(log.linear.model), log.prediction = predict(log.linear.model))
 ```
 
 ### (iii)
 
+```{r}
+ggplot(logerrorcheck, aes(x = log.prediction, y = log.residuals)) + geom_point()
+```
+
+Yes,the linear model does seem to be appropriate!
+
 ### (iv)
+
+```{r}
+qqnorm(logerrorcheck$log.residuals)
+shapiro.test(logerrorcheck$log.residuals)
+```
+
+The QQ plot looks okay for most of the part, but tends to seem a bit inappropriate with oddly large quantiles at the upper end. The Shapiro-Wilk normality test gave a p-value of 0.6011, which indicates that the deviation from normality may not be too big of a deal.
 
 ### (v)
 
+```{r}
+(log.slope <- log.linear.model$coefficients[2])
+```
+
+Given that the slope from the regression is 7.009967, every unit change in `log(dose)` will be accompanied by that much (value) of a unit change in the response.
+
 ### (vi)
+
+95% CI for the regression parameters (y-intercept and slope) are:
+
+```{r}
+confint(log.linear.model)
+```
+Given that the interval for logdose's parameter doesn't contain 0, `log(dose)` is indeed a statistically significant predictor of the response. 

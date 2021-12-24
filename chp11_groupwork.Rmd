@@ -1,0 +1,127 @@
+---
+title: "Chapter 11 Groupwork"
+author: "Anirban Chetia, Brit Riggs"
+date: "11/23/2021"
+output: pdf_document
+---
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+suppressPackageStartupMessages({
+ library(MASS)
+ library(knitr)
+ library(dplyr)
+ library(broom)
+ library(ggplot2)
+ library(latex2exp)
+})
+```
+
+# Exercise 1
+
+Given table:
+
+```{r}
+data <- data.frame(
+  high_school  = c( 96,  56, 152),
+  some_college = c( 72,  78, 150),
+  bachelors    = c( 59,  67, 126),
+  adv_degree   = c( 34,  39,  73),
+  total        = c(261, 240, 501))
+
+rownames(data)<- c("male", "female", "total")
+
+data
+```
+
+## 1(a)
+
+The expected count values for each category from the table above are:
+
+```{r, echo=TRUE}
+expectedCounts <- data.frame(high_school  = numeric(),
+                             some_college = numeric(), 
+                             bachelors    = numeric(),
+                             adv_degree   = numeric())
+n <- data$total[3]
+for (row in 1:2) {
+  temp_case <- data.frame(
+    high_school  = data$high_school [3]*data$total[row]/n,
+    some_college = data$some_college[3]*data$total[row]/n, 
+    bachelors    = data$bachelors   [3]*data$total[row]/n,
+    adv_degree   = data$adv_degree  [3]*data$total[row]/n)
+  
+  expectedCounts <- rbind(expectedCounts, temp_case)
+}
+
+rownames(expectedCounts)<-c("male", "female")
+
+expectedCounts
+```
+
+## 1(b)
+
+Our test statistic is the sum of the observed deviations from expectation:
+
+```{r}
+X2 <- 0
+for(row in 1:2){
+  for(col in 1:4){
+    X2 <- X2+
+      ((data[row,col] - expectedCounts[row, col])^2/expectedCounts[row, col])
+  }
+}
+X2
+```
+
+## 1(c)
+
+```{r}
+row <- 2
+col <- 4
+1 - pchisq(X2, df = (row - 1) * (col - 1))
+```
+The p-value is 0.0131 which is less than the standard alpha of 0.05, which means we reject the null that gender is not related to degree. We find that gender and degree are dependent.
+
+\newpage
+
+## 1(d)
+
+```{r}
+chisq.test(x = rbind(c(96, 72, 59, 34), c(56, 78, 67, 39)))
+```
+
+The hand calculations match the function calculation.
+
+\newpage
+
+# Exercise 2
+
+## 2(a)
+
+```{r}
+data(ACS, package='Lock5Data')
+temp <- ACS %>% 
+  mutate(HealthInsurance = factor(ifelse(HealthInsurance == 1, "Have","None")),
+         Race = factor(Race, levels = c('white','asian','black','other'))) %>%
+  group_by(Race, HealthInsurance) %>% 
+  dplyr::count() %>%
+  group_by(Race) %>%
+  mutate(proportion = n/sum(n))
+ggplot(temp, aes(x = Race, y = proportion, fill = HealthInsurance)) + geom_bar(stat = 'identity')
+(tab <- mosaic::tally(HealthInsurance ~ Race, data = ACS))
+```
+
+## 2(b)
+
+Conclusion wise, its a '\textbf{GOT-IT}', but approach wise, its a '\textbf{SO-SO}'!
+
+```{r}
+row <- 2
+col <- 4
+X2_asymptotic <- chisq.test(tab)$statistic
+(1 - pchisq(X2_asymptotic, df = (row - 1) * (col - 1)))
+X2_permutation <- chisq.test(tab, simulate.p.value = TRUE, B = 100000)$statistic
+(1 - pchisq(X2_permutation,df = (row - 1) * (col - 1)))
+```
+
+Both of the p-values are the same and smaller than the standard alpha of 0.05, so we reject the null that race and health insurance are independent.
